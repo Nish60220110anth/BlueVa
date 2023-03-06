@@ -4,6 +4,9 @@ import java.lang.reflect.Type;
 
 import javax.lang.model.element.Modifier;
 
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.TypeName;
+
 public class Utility {
     public static Modifier GetAccessModifier(BJAccessModifers accModifer) {
         if (accModifer == BJAccessModifers.DEFAULT) {
@@ -83,5 +86,9 @@ public class Utility {
         } else {
             return String.class;
         }
+    }
+
+    public static TypeName GetTypeNameFromString(String _packageName, String _className) {
+        return ClassName.get(_packageName, _className);
     }
 }

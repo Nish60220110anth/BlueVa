@@ -67,6 +67,11 @@ public class BJClassWriter {
                 .addJavadoc(String.format("Hello , this is Sample Java doc for class %s\n", this._class.GetName())
                         + "@brief\nSome sample brief message");
 
+        classBuilder = classBuilder
+                .superclass(
+                        Utility.GetTypeNameFromString(_class.GetPackageName(), _class.GetExtendingClass()).getClass(),
+                        true);
+
         classBuilder = classBuilder.addMethod(CreateConstructor());
         for (BJMethodClass methodClass : this._class.GetMethodColl()) {
             classBuilder = classBuilder.addMethod(CreateMethodSpec(methodClass));
@@ -74,6 +79,11 @@ public class BJClassWriter {
 
         for (BJField field : this._class.GetFieldColl()) {
             classBuilder = classBuilder.addField(CreateFieldSpec(field));
+        }
+
+        for (String interfaceName : _class.GetImplementingInterfaces()) {
+            classBuilder = classBuilder.addSuperinterface(Utility.GetTypeNameFromString(_class.GetPackageName(),
+                    interfaceName));
         }
 
         return classBuilder.build();
@@ -136,7 +146,7 @@ public class BJClassWriter {
     private FieldSpec CreateFieldSpec(BJField _field) {
         com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
                 Utility.GetTypeNameForPrimTypes(_field.GetOutput()),
-                _field.GetName(), Utility.GetNonAccessModifierForField(_field.GetNaccModifiersMethods()))
+                _field.GetName(), Utility.GetNonAccessModifierForField(_field.GetNaccModifiers()))
                 .addJavadoc(String.format("Sample Jav doc for Field %s", _field.GetName()));
 
         return fieldBuilder.build();

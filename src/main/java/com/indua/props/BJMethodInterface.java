@@ -16,7 +16,7 @@ public class BJMethodInterface {
     }
 
     private String _name;
-    private ArrayList<BJParameter> _inputs;
+    private ArrayList<BJParameter> _parameterColl;
     private BJPrimTypes _output;
     private BJAccessModifers _accModifiers;
     private BJNAccessModifiersMethod _naccModifiers;
@@ -34,12 +34,12 @@ public class BJMethodInterface {
         return this;
     }
 
-    public ArrayList<BJParameter> GetInputs() {
-        return _inputs;
+    public ArrayList<BJParameter> GetParameterColl() {
+        return _parameterColl;
     }
 
-    public BJMethodInterface SetInputs(ArrayList<BJParameter> _inputs) {
-        this._inputs = _inputs;
+    public BJMethodInterface SetParameterColl(ArrayList<BJParameter> _parameterColl) {
+        this._parameterColl = _parameterColl;
         return this;
     }
 

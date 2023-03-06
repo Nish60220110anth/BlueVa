@@ -57,8 +57,8 @@ public class BJEnum {
         return _enumvaluesColl;
     }
 
-    public BJEnum SetEnumvaluesColl(ArrayList<BJEnumValue> _enumvaluesColl) {
-        this._enumvaluesColl = _enumvaluesColl;
+    public BJEnum AddEnumValues(BJEnumValue _enumvalue) {
+        this._enumvaluesColl.add(_enumvalue);
         return this;
     }
 }

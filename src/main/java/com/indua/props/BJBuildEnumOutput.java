@@ -16,11 +16,11 @@ public class BJBuildEnumOutput {
         _message = "No error";
     }
 
-    public String GetClassName() {
+    public String GetEnumName() {
         return _enumName;
     }
 
-    public BJBuildEnumOutput SetClassName(String _enumName) {
+    public BJBuildEnumOutput SetEnumName(String _enumName) {
         this._enumName = _enumName;
         return this;
     }

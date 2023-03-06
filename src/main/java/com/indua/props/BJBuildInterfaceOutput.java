@@ -16,11 +16,11 @@ public class BJBuildInterfaceOutput {
         _message = "No error";
     }
 
-    public String GetClassName() {
+    public String GetInterfaceName() {
         return _interfaceName;
     }
 
-    public BJBuildInterfaceOutput SetClassName(String _interfaceName) {
+    public BJBuildInterfaceOutput SetInterfaceName(String _interfaceName) {
         this._interfaceName = _interfaceName;
         return this;
     }

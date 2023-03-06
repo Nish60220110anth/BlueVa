@@ -8,17 +8,30 @@ public class BJInterface {
     public static BJInterface CreateInstance(String _ppackageName) {
         return new BJInterface(_ppackageName);
     }
+
     /*
-     *  name="" implements="" accmod=""
+     * name="" implements="" accmod=""
      */
     private String _name;
-    private ArrayList<String> _implementingInterfaces;
-    private BJAccessModifers _accModifiers;
-    private final String _packageName;
 
+    private ArrayList<String> _implementingInterfaces;
+
+    private BJAccessModifers _accModifiers;
+
+    private final String _packageName;
+    private ArrayList<BJMethodInterface> _methodColl;
     private BJInterface(String _ppackageName) {
         _implementingInterfaces = new ArrayList<>();
+        _methodColl = new ArrayList<>();
         this._packageName = _ppackageName;
+    }
+    public ArrayList<BJMethodInterface> GetMethodColl() {
+        return _methodColl;
+    }
+
+    public BJInterface AddMethod(BJMethodInterface _method) {
+        this._methodColl.add(_method);
+        return this;
     }
 
     public String GetPackageName() {
@@ -37,10 +50,11 @@ public class BJInterface {
     public ArrayList<String> GetImplementingInterfaces() {
         return _implementingInterfaces;
     }
+
     public BJInterface SetImplementingInterfaces(ArrayList<String> _implementingInterfaces) {
         this._implementingInterfaces = _implementingInterfaces;
         return this;
-    } 
+    }
 
     public BJAccessModifers GetAccModifiers() {
         return _accModifiers;

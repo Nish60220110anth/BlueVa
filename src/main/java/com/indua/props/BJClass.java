@@ -12,7 +12,7 @@ public class BJClass extends BJNode {
     }
 
     private String _extendingClass;
-    private ArrayList<String> _implementingClasses;
+    private ArrayList<String> _implementingInterfaces;
     private BJAccessModifers _accModifiers;
     private BJNAccessModifiersClass _naccModifiers;
     private ArrayList<BJMethodClass> _methodColl;
@@ -20,7 +20,7 @@ public class BJClass extends BJNode {
     private final String _packageName;
 
     private BJClass(String _ppackageName) {
-        _implementingClasses = new ArrayList<>();
+        _implementingInterfaces = new ArrayList<>();
         _methodColl = new ArrayList<>();
         _fieldColl = new ArrayList<>();
         _packageName = _ppackageName;
@@ -37,17 +37,17 @@ public class BJClass extends BJNode {
         return _extendingClass;
     }
 
-    public BJClass SetExtendingClass(String _extendingClass) {
+    public BJClass SetExtendingInterfaces(String _extendingClass) {
         this._extendingClass = _extendingClass;
         return this;
     }
 
-    public ArrayList<String> GetImplementingClasses() {
-        return _implementingClasses;
+    public ArrayList<String> GetImplementingInterfaces() {
+        return _implementingInterfaces;
     }
 
-    public BJClass SetImplementingClasses(ArrayList<String> _implementingClasses) {
-        this._implementingClasses = _implementingClasses;
+    public BJClass SetImplementingClasses(ArrayList<String> _implementingInterfaces) {
+        this._implementingInterfaces = _implementingInterfaces;
         return this;
     }
 
@@ -73,8 +73,8 @@ public class BJClass extends BJNode {
         return _methodColl;
     }
 
-    public BJClass SetMethodColl(ArrayList<BJMethodClass> _methodColl) {
-        this._methodColl = _methodColl;
+    public BJClass AddMethod(BJMethodClass _method) {
+        this._methodColl.add(_method);
         return this;
     }
 

@@ -59,11 +59,11 @@ public class BJField {
         return this;
     }
 
-    public BJNAccessModifiersField GetNaccModifiersMethods() {
+    public BJNAccessModifiersField GetNaccModifiers() {
         return _naccModifiersFields;
     }
 
-    public BJField SetNaccModifiersMethods(BJNAccessModifiersField _naccModifiersMethods) {
+    public BJField SetNaccModifiers(BJNAccessModifiersField _naccModifiersMethods) {
         this._naccModifiersFields = _naccModifiersMethods;
         return this;
     }
