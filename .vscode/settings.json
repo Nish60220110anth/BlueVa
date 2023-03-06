@@ -1,4 +1,5 @@
 {
     "editor.multiCursorModifier": "ctrlCmd",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "tabnine.experimentalAutoImports": true,
 }

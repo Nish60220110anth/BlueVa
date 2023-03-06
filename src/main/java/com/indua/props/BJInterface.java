@@ -5,20 +5,24 @@ import java.util.ArrayList;
 import com.indua.utils.BJAccessModifers;
 
 public class BJInterface {
-    public static BJInterface CreateInstance() {
-        return new BJInterface();
+    public static BJInterface CreateInstance(String _ppackageName) {
+        return new BJInterface(_ppackageName);
     }
     /*
      *  name="" implements="" accmod=""
      */
     private String _name;
-
     private ArrayList<String> _implementingInterfaces;
-
     private BJAccessModifers _accModifiers;
+    private final String _packageName;
 
-    private BJInterface() {
+    private BJInterface(String _ppackageName) {
         _implementingInterfaces = new ArrayList<>();
+        this._packageName = _ppackageName;
+    }
+
+    public String GetPackageName() {
+        return this._packageName;
     }
 
     public String GetName() {

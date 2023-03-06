@@ -3,30 +3,34 @@ package com.indua.props;
 import java.util.ArrayList;
 
 import com.indua.utils.BJAccessModifers;
-import com.indua.utils.BJNAccessModifersClass;
+import com.indua.utils.BJNAccessModifiersClass;
 
 public class BJClass extends BJNode {
 
-    public static BJClass CreateInstance() {
-        return new BJClass();
+    public static BJClass CreateInstance(String _ppackageName) {
+        return new BJClass(_ppackageName);
     }
+
     private String _extendingClass;
     private ArrayList<String> _implementingClasses;
     private BJAccessModifers _accModifiers;
-
-    private BJNAccessModifersClass _naccModifiers;
-
+    private BJNAccessModifiersClass _naccModifiers;
     private ArrayList<BJMethodClass> _methodColl;
-
     private ArrayList<BJField> _fieldColl;
+    private final String _packageName;
 
-    private BJClass() {
+    private BJClass(String _ppackageName) {
         _implementingClasses = new ArrayList<>();
         _methodColl = new ArrayList<>();
         _fieldColl = new ArrayList<>();
+        _packageName = _ppackageName;
 
         _accModifiers = BJAccessModifers.DEFAULT;
-        _naccModifiers= BJNAccessModifersClass.DEFAULT;
+        _naccModifiers = BJNAccessModifiersClass.DEFAULT;
+    }
+
+    public String GetPackageName() {
+        return this._packageName;
     }
 
     public String GetExtendingClass() {
@@ -56,11 +60,11 @@ public class BJClass extends BJNode {
         return this;
     }
 
-    public BJNAccessModifersClass GetNaccModifiers() {
+    public BJNAccessModifiersClass GetNaccModifiers() {
         return _naccModifiers;
     }
 
-    public BJClass SetNaccModifiers(BJNAccessModifersClass _naccModifiers) {
+    public BJClass SetNaccModifiers(BJNAccessModifiersClass _naccModifiers) {
         this._naccModifiers = _naccModifiers;
         return this;
     }
@@ -68,16 +72,17 @@ public class BJClass extends BJNode {
     public ArrayList<BJMethodClass> GetMethodColl() {
         return _methodColl;
     }
+
     public BJClass SetMethodColl(ArrayList<BJMethodClass> _methodColl) {
         this._methodColl = _methodColl;
         return this;
     }
 
-    public ArrayList<BJField> GetfieldColl() {
+    public ArrayList<BJField> GetFieldColl() {
         return _fieldColl;
     }
 
-    public BJClass SetfieldColl(ArrayList<BJField> _fieldColl) {
+    public BJClass SetFieldColl(ArrayList<BJField> _fieldColl) {
         this._fieldColl = _fieldColl;
         return this;
     }

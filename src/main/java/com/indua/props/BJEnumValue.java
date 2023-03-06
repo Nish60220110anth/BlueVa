@@ -7,7 +7,7 @@ public class BJEnumValue {
 
     private String _name;
 
-    private int value;// 0 1 2 (automatically assinged by enum)
+    private int _value;// 0 1 2 (automatically assinged by enum)
 
     private BJEnumValue() {
 
@@ -23,11 +23,11 @@ public class BJEnumValue {
     }
 
     public int GetValue() {
-        return value;
+        return _value;
     }
 
-    public BJEnumValue SetValue(int value) {
-        this.value = value;
+    public BJEnumValue SetValue(int _pvalue) {
+        this._value = _pvalue;
         return this;
     }
 }

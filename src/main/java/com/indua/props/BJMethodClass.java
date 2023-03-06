@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.indua.utils.BJAccessModifers;
 import com.indua.utils.BJId;
 import com.indua.utils.BJNAccessModifiersMethod;
+import com.indua.utils.BJPrimTypes;
 
 public class BJMethodClass {
     public static BJMethodClass CreateInstance() {
@@ -16,15 +17,10 @@ public class BJMethodClass {
      */
 
     private String _name;
-
-    private String _output;
-
+    private BJPrimTypes _output;
     private BJId _bjId;
-
     private BJAccessModifers _accModifiers;
-
     private BJNAccessModifiersMethod _naccModifiersMethods;
-
     private ArrayList<BJParameter> _parameterColl;
 
     private BJMethodClass() {
@@ -40,11 +36,11 @@ public class BJMethodClass {
         return this;
     }
 
-    public String GetOutput() {
+    public BJPrimTypes GetOutput() {
         return _output;
     }
 
-    public BJMethodClass SetOutput(String _output) {
+    public BJMethodClass SetOutput(BJPrimTypes _output) {
         this._output = _output;
         return this;
     }

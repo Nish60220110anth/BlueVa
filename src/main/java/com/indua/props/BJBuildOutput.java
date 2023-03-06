@@ -31,4 +31,16 @@ public class BJBuildOutput {
         _enumOutputs.add(_enumOutput);
         return this;
     }
+
+    public ArrayList<BJBuildClassOutput> GetClassOutputColl() {
+        return this._classOutputs;
+    }
+
+    public ArrayList<BJBuildEnumOutput> GetEnumOutputColl() {
+        return this._enumOutputs;
+    }
+
+    public ArrayList<BJBuildInterfaceOutput> GetInterfaceOutputColl() {
+        return this._interfaceOutputs;
+    }
 }

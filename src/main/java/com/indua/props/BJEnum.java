@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.indua.utils.BJAccessModifers;
 
 public class BJEnum {
-    public static BJEnum CreateInstance() {
-        return new BJEnum();
+    public static BJEnum CreateInstance(String _ppackageName) {
+        return new BJEnum(_ppackageName);
     }
     public static ArrayList<BJEnumValue> GenerateEnumValues(ArrayList<String> _enumStr , Boolean reqDefault) {
         ArrayList<BJEnumValue> _enumValues = new ArrayList<>();
@@ -22,13 +22,17 @@ public class BJEnum {
     }
 
     private String _name;
-
     private BJAccessModifers _accModifiers;
-
     private ArrayList<BJEnumValue> _enumvaluesColl;
+    private final String _packageName;
 
-    private BJEnum() {
+    private BJEnum(String _ppackageName) {
         _enumvaluesColl = new ArrayList<>();
+        this._packageName = _ppackageName;
+    }
+
+    public String GetPackageName() {
+        return this._packageName;
     }
 
     public String GetName() {

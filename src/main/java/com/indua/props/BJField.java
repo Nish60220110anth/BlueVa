@@ -23,7 +23,7 @@ public class BJField {
 
     }
 
-    public String Getvalue() {
+    public String GetValue() {
         return _value;
     }
 

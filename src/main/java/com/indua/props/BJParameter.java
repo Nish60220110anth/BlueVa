@@ -1,16 +1,26 @@
 package com.indua.props;
 
+import com.indua.utils.BJNAccessModifiersParameter;
+import com.indua.utils.BJPrimTypes;
+
 public class BJParameter {
     public static BJParameter CreateInstance() {
         return new BJParameter();
     }
 
     private String _name;
-
-    private String _output;
-
+    private BJPrimTypes _output;
+    private BJNAccessModifiersParameter _naccModifier;
+    
     private BJParameter() {
 
+    }
+    public BJNAccessModifiersParameter GetNaccModifier() {
+        return _naccModifier;
+    }
+
+    public void SetNaccModifier(BJNAccessModifiersParameter _naccModifier) {
+        this._naccModifier = _naccModifier;
     }
 
     public String GetName() {
@@ -22,11 +32,11 @@ public class BJParameter {
         return this;
     }
 
-    public String GetOutput() {
+    public BJPrimTypes GetOutput() {
         return _output;
     }
 
-    public BJParameter SetOutput(String _output) {
+    public BJParameter SetOutput(BJPrimTypes _output) {
         this._output = _output;
         return this;
     }
