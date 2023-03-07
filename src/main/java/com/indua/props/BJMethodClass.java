@@ -2,15 +2,15 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifiers;
+import com.indua.utils.BJAccessModifier;
 import com.indua.utils.BJId;
-import com.indua.utils.BJNAccessModifiersMethod;
+import com.indua.utils.BJNAccessModifierMethod;
 import com.indua.utils.BJPrimTypes;
 
 /** Method in class
  * 
  */
-public class BJMethodClass {
+public class BJMethodClass extends BJMethod {
 
     /**
      * CreateInstance() is a static method that returns a new instance of
@@ -25,8 +25,8 @@ public class BJMethodClass {
     private String _name; // name of node
     private BJPrimTypes _output; // return type of method
     private BJId _bjId; // Unique identifier for code
-    private BJAccessModifiers _accModifiers;
-    private BJNAccessModifiersMethod _naccModifiersMethods;
+    private BJAccessModifier _accModifier;
+    private BJNAccessModifierMethod _naccModifierMethod;
     private ArrayList<BJParameter> _parameterColl;
 
     private BJMethodClass() {
@@ -98,11 +98,11 @@ public class BJMethodClass {
      * This function returns the access modifiers of the class
      * 
      * @return The access modifiers of the class.
-     * @apiNote See {@link BJAccessModifiers} for supported Access 
+     * @apiNote See {@link BJAccessModifier} for supported Access 
      */
 
-    public BJAccessModifiers getAccModifiers() {
-        return _accModifiers;
+    public BJAccessModifier getAccModifier() {
+        return _accModifier;
     }
 
     /**
@@ -113,8 +113,8 @@ public class BJMethodClass {
      * @param _accModifiers The access modifiers for the method.
      * @return The object itself.
      */
-    public BJMethodClass setAccModifiers(BJAccessModifiers _accModifiers) {
-        this._accModifiers = _accModifiers;
+    public BJMethodClass setAccModifier(BJAccessModifier _accModifier) {
+        this._accModifier = _accModifier;
         return this;
     }
 
@@ -124,8 +124,8 @@ public class BJMethodClass {
      * @return The method is returning the value of the variable
      *         _naccModifiersMethods.
      */
-    public BJNAccessModifiersMethod getNaccModifiersMethods() {
-        return _naccModifiersMethods;
+    public BJNAccessModifierMethod getNaccModifier() {
+        return _naccModifierMethod;
     }
 
     /**
@@ -133,14 +133,14 @@ public class BJMethodClass {
      * value of the variable
      * _naccModifiersMethods.
      * 
-     * @apiNote See {@link BJNAccessModifiersMethod} for supported
+     * @apiNote See {@link BJNAccessModifierMethod} for supported
      *          Non-Access-Modifiers
      * 
      * @param _naccModifiersMethods BJNAccessModifiersMethod
      * @return The object itself.
      */
-    public BJMethodClass setNaccModifiersMethods(BJNAccessModifiersMethod _naccModifiersMethods) {
-        this._naccModifiersMethods = _naccModifiersMethods;
+    public BJMethodClass setNaccModifier(BJNAccessModifierMethod _naccModifiersMethods) {
+        this._naccModifierMethod = _naccModifiersMethods;
         return this;
     }
 

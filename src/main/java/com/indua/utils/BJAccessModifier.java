@@ -1,7 +1,7 @@
 package com.indua.utils;
 
 
-public enum BJAccessModifiers {
+public enum BJAccessModifier {
     DEFAULT,
     PRIVATE,
     PUBLIC,

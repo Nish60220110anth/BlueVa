@@ -55,7 +55,7 @@ public class BJEnumWriter {
     public TypeSpec createEnumSpec() {
         com.squareup.javapoet.TypeSpec.Builder enumBuilder = TypeSpec.enumBuilder(_enum.getName());
 
-        enumBuilder = enumBuilder.addModifiers(Utility.getAccessModifier(_enum.getAccModifiers()));
+        enumBuilder = enumBuilder.addModifiers(Utility.getAccessModifier(_enum.getAccModifier()));
 
         for (BJEnumValue _value : _enum.getEnumValuesColl()) {
             enumBuilder = enumBuilder.addEnumConstant(_value.getName(),

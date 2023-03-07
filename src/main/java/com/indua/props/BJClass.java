@@ -2,8 +2,8 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifiers;
-import com.indua.utils.BJNAccessModifiersClass;
+import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJNAccessModifierClass;
 
 public class BJClass extends BJNode {
 
@@ -19,8 +19,8 @@ public class BJClass extends BJNode {
 
     private String _extendingClass;
     private ArrayList<String> _implementingInterfaces;
-    private BJAccessModifiers _accModifiers;
-    private BJNAccessModifiersClass _naccModifiers;
+    private BJAccessModifier _accModifier;
+    private BJNAccessModifierClass _naccModifier;
     private ArrayList<BJMethodClass> _methodColl;
     private ArrayList<BJField> _fieldColl;
     private final String _packageName;
@@ -31,8 +31,8 @@ public class BJClass extends BJNode {
         _fieldColl = new ArrayList<>();
         _packageName = _ppackageName;
 
-        _accModifiers = BJAccessModifiers.DEFAULT;
-        _naccModifiers = BJNAccessModifiersClass.DEFAULT;
+        _accModifier = BJAccessModifier.DEFAULT;
+        _naccModifier = BJNAccessModifierClass.DEFAULT;
     }
 
     /**
@@ -88,12 +88,12 @@ public class BJClass extends BJNode {
     }
 
     /**
-     * > Returns the access modifiers of the current class
+     * Returns the access modifiers of the current class
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifiers getAccModifiers() {
-        return _accModifiers;
+    public BJAccessModifier getAccModifier() {
+        return _accModifier;
     }
 
     /**
@@ -101,34 +101,34 @@ public class BJClass extends BJNode {
      * passed in as a
      * parameter.
      * 
-     * @param _accModifiers The access modifiers for the class.
+     * @param _accModifier The access modifiers for the class.
      * @return The object itself.
      */
-    public BJClass setAccModifiers(BJAccessModifiers _accModifiers) {
-        this._accModifiers = _accModifiers;
+    public BJClass setAccModifier(BJAccessModifier _accModifier) {
+        this._accModifier = _accModifier;
         return this;
     }
 
     /**
-     * This function returns the value of the private variable _naccModifiers
+     * This function returns the value of the private variable _naccModifier
      * 
-     * @return The value of the variable _naccModifiers.
+     * @return The value of the variable _naccModifier.
      */
 
-    public BJNAccessModifiersClass getNaccModifiers() {
-        return _naccModifiers;
+    public BJNAccessModifierClass getNaccModifier() {
+        return _naccModifier;
     }
 
     /**
-     * "This function sets the value of the private variable _naccModifiers to the
+     * "This function sets the value of the private variable _naccModifier to the
      * value of the parameter
-     * _naccModifiers."
+     * _naccModifier."
      * 
-     * @param _naccModifiers The access modifiers for the class.
+     * @param _naccModifier The access modifiers for the class.
      * @return The object itself.
      */
-    public BJClass setNaccModifiers(BJNAccessModifiersClass _naccModifiers) {
-        this._naccModifiers = _naccModifiers;
+    public BJClass setNaccModifier(BJNAccessModifierClass _naccModifier) {
+        this._naccModifier = _naccModifier;
         return this;
     }
 

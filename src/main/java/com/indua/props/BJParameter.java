@@ -1,6 +1,6 @@
 package com.indua.props;
 
-import com.indua.utils.BJNAccessModifiersParameter;
+import com.indua.utils.BJNAccessModifierParameter;
 import com.indua.utils.BJPrimTypes;
 
 public class BJParameter {
@@ -15,7 +15,7 @@ public class BJParameter {
 
     private String _name;
     private BJPrimTypes _output;
-    private BJNAccessModifiersParameter _naccModifier;
+    private BJNAccessModifierParameter _naccModifier;
 
     private BJParameter() {
 
@@ -26,7 +26,7 @@ public class BJParameter {
      * 
      * @return The value of the variable _naccModifier.
      */
-    public BJNAccessModifiersParameter getNaccModifier() {
+    public BJNAccessModifierParameter getNaccModifier() {
         return _naccModifier;
     }
 
@@ -37,7 +37,7 @@ public class BJParameter {
      * 
      * @param _naccModifier The parameter that is passed in from the calling method.
      */
-    public void getNaccModifier(BJNAccessModifiersParameter _naccModifier) {
+    public void getNaccModifier(BJNAccessModifierParameter _naccModifier) {
         this._naccModifier = _naccModifier;
     }
 

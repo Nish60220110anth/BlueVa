@@ -1,6 +1,6 @@
 package com.indua.utils;
 
-public enum BJNAccessModifiersField {
+public enum BJNAccessModifierField {
     DEFAULT,
     VOLATILE,
     STATIC,

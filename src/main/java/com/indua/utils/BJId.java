@@ -37,4 +37,14 @@ public class BJId {
     public void setId(UUID _id) {
         this._id = _id;
     }
+
+   /**
+    * This function returns a string representation of the object.
+    * 
+    * @return The id of the object.
+    */
+    @Override
+    public String toString() {
+        return String.format("%s", this._id.toString());
+    }
 }

@@ -2,7 +2,7 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifiers;
+import com.indua.utils.BJAccessModifier;
 
 public class BJInterface {
     /**
@@ -18,13 +18,15 @@ public class BJInterface {
 
     private String _name;
     private ArrayList<String> _implementingInterfaces;
-    private BJAccessModifiers _accModifiers;
+    private BJAccessModifier _accModifier;
     private final String _packageName;
     private ArrayList<BJMethodInterface> _methodColl;
 
     private BJInterface(String _ppackageName) {
         _implementingInterfaces = new ArrayList<>();
         _methodColl = new ArrayList<>();
+        _accModifier = BJAccessModifier.DEFAULT;
+
         this._packageName = _ppackageName;
     }
 
@@ -105,18 +107,18 @@ public class BJInterface {
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifiers getAccModifiers() {
-        return _accModifiers;
+    public BJAccessModifier getAccModifier() {
+        return _accModifier;
     }
 
     /**
      * Sets the access modifiers for the class
      * 
-     * @param _accModifiers The access modifiers for the interface.
+     * @param _accModifier The access modifiers for the interface.
      * @return The object itself.
      */
-    public BJInterface setAccModifiers(BJAccessModifiers _accModifiers) {
-        this._accModifiers = _accModifiers;
+    public BJInterface setAccModifier(BJAccessModifier _accModifier) {
+        this._accModifier = _accModifier;
         return this;
     }
 }

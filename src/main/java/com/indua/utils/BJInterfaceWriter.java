@@ -53,7 +53,7 @@ public class BJInterfaceWriter {
      */
     public TypeSpec createInterfaceSpec() {
         com.squareup.javapoet.TypeSpec.Builder interfaceBuilder = TypeSpec.interfaceBuilder(this._interface.getName());
-        interfaceBuilder = interfaceBuilder.addModifiers(Utility.getAccessModifier(this._interface.getAccModifiers()));
+        interfaceBuilder = interfaceBuilder.addModifiers(Utility.getAccessModifier(this._interface.getAccModifier()));
 
         interfaceBuilder = interfaceBuilder
                 .addJavadoc(
@@ -83,8 +83,8 @@ public class BJInterfaceWriter {
     public MethodSpec createMethodSpec(BJMethodInterface _methodInterface) {
         com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodInterface.getName());
 
-        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodInterface.getAccModifiers()),
-                Utility.getNonAccessModifierForMethod(_methodInterface.getNaccModifiers()));
+        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodInterface.getAccModifier()),
+                Utility.getNonAccessModifierForMethod(_methodInterface.getNaccModifier()));
 
         _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodInterface.getOutput()));
 

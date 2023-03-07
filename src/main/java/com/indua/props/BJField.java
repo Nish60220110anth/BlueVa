@@ -1,7 +1,7 @@
 package com.indua.props;
 
-import com.indua.utils.BJAccessModifiers;
-import com.indua.utils.BJNAccessModifiersField;
+import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJNAccessModifierField;
 import com.indua.utils.BJPrimTypes;
 
 public class BJField {
@@ -17,8 +17,8 @@ public class BJField {
     private String _name;
     private BJPrimTypes _output;
     private String _value;
-    private BJAccessModifiers _accModifiers;
-    private BJNAccessModifiersField _naccModifiersFields;
+    private BJAccessModifier _accModifier;
+    private BJNAccessModifierField _naccModifierField;
 
     private BJField() {
 
@@ -87,45 +87,45 @@ public class BJField {
     }
 
     /**
-     * It returns the access modifiers of the class.
+     * It returns the access modifier of the class.
      * 
-     * @return The access modifiers of the class.
+     * @return The access modifier of the class.
      */
-    public BJAccessModifiers getAccModifiers() {
-        return _accModifiers;
+    public BJAccessModifier getAccModifier() {
+        return _accModifier;
     }
 
     /**
-     * This function sets the access modifiers of the field and returns the field.
+     * This function sets the access modifier of the field and returns the field.
      * 
-     * @param _accModifiers The access modifiers for the field.
+     * @param _accModifier The access modifier for the field.
      * @return The object itself.
      */
-    public BJField setAccModifiers(BJAccessModifiers _accModifiers) {
-        this._accModifiers = _accModifiers;
+    public BJField setAccModifier(BJAccessModifier _paccModifier) {
+        this._accModifier = _paccModifier;
         return this;
     }
 
     /**
-     * This function returns the value of the private field _naccModifiersFields
+     * This function returns the value of the private field _naccModifierField
      * 
-     * @return The _naccModifiersFields variable is being returned.
+     * @return The _naccModifierField variable is being returned.
      */
 
-    public BJNAccessModifiersField getNaccModifiers() {
-        return _naccModifiersFields;
+    public BJNAccessModifierField getNaccModifier() {
+        return _naccModifierField;
     }
 
     /**
-     * This function sets the value of the private variable _naccModifiersFields to
+     * This function sets the value of the private variable _naccModifierField to
      * the value of the
-     * parameter _naccModifiersMethods.
+     * parameter _pnaccModifierMethods.
      * 
      * @param _naccModifiersMethods The access modifier for the method.
      * @return The object itself.
      */
-    public BJField setNaccModifiers(BJNAccessModifiersField _naccModifiersMethods) {
-        this._naccModifiersFields = _naccModifiersMethods;
+    public BJField setNaccModifier(BJNAccessModifierField _pnaccModifierMethods) {
+        this._naccModifierField = _pnaccModifierMethods;
         return this;
     }
 

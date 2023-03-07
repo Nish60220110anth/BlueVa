@@ -1,6 +1,8 @@
 package com.indua.utils;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import javax.lang.model.element.Modifier;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
@@ -12,12 +14,12 @@ public class Utility {
      * @param accModifer The access modifier of the method.
      * @return A Modifier object.
      */
-    public static Modifier getAccessModifier(BJAccessModifiers accModifer) {
-        if (accModifer == BJAccessModifiers.DEFAULT) {
+    public static Modifier getAccessModifier(BJAccessModifier accModifer) {
+        if (accModifer == BJAccessModifier.DEFAULT) {
             return Modifier.DEFAULT;
-        } else if (accModifer == BJAccessModifiers.PRIVATE) {
+        } else if (accModifer == BJAccessModifier.PRIVATE) {
             return Modifier.PRIVATE;
-        } else if (accModifer == BJAccessModifiers.PROTECTED) {
+        } else if (accModifer == BJAccessModifier.PROTECTED) {
             return Modifier.PROTECTED;
         } else {
             return Modifier.PUBLIC;
@@ -31,14 +33,14 @@ public class Utility {
      * @param naccModifier The non-access modifier for the field.
      * @return A modifier.
      */
-    public static Modifier getNonAccessModifierForField(BJNAccessModifiersField naccModifier) {
-        if (naccModifier == BJNAccessModifiersField.DEFAULT) {
+    public static Modifier getNonAccessModifierForField(BJNAccessModifierField naccModifier) {
+        if (naccModifier == BJNAccessModifierField.DEFAULT) {
             return Modifier.DEFAULT;
-        } else if (naccModifier == BJNAccessModifiersField.FINAL) {
+        } else if (naccModifier == BJNAccessModifierField.FINAL) {
             return Modifier.FINAL;
-        } else if (naccModifier == BJNAccessModifiersField.STATIC) {
+        } else if (naccModifier == BJNAccessModifierField.STATIC) {
             return Modifier.STATIC;
-        } else if (naccModifier == BJNAccessModifiersField.TRANSIENT) {
+        } else if (naccModifier == BJNAccessModifierField.TRANSIENT) {
             return Modifier.TRANSIENT;
         } else {
             return Modifier.VOLATILE;
@@ -52,16 +54,16 @@ public class Utility {
      * @param naccModifier The non-access modifier for the method.
      * @return The return type of the method.
      */
-    public static Modifier getNonAccessModifierForMethod(BJNAccessModifiersMethod naccModifier) {
-        if (naccModifier == BJNAccessModifiersMethod.ABSTRACT) {
+    public static Modifier getNonAccessModifierForMethod(BJNAccessModifierMethod naccModifier) {
+        if (naccModifier == BJNAccessModifierMethod.ABSTRACT) {
             return Modifier.ABSTRACT;
-        } else if (naccModifier == BJNAccessModifiersMethod.FINAL) {
+        } else if (naccModifier == BJNAccessModifierMethod.FINAL) {
             return Modifier.FINAL;
-        } else if (naccModifier == BJNAccessModifiersMethod.STATIC) {
+        } else if (naccModifier == BJNAccessModifierMethod.STATIC) {
             return Modifier.STATIC;
-        } else if (naccModifier == BJNAccessModifiersMethod.SYNCHRONIZED) {
+        } else if (naccModifier == BJNAccessModifierMethod.SYNCHRONIZED) {
             return Modifier.SYNCHRONIZED;
-        } else if (naccModifier == BJNAccessModifiersMethod.TRANSIENT) {
+        } else if (naccModifier == BJNAccessModifierMethod.TRANSIENT) {
             return Modifier.TRANSIENT;
         } else {
             return Modifier.DEFAULT;
@@ -75,10 +77,10 @@ public class Utility {
      * @param naccModifier The non-access modifier for the class.
      * @return The return type is a Modifier.
      */
-    public static Modifier getNonAccessModifierForClass(BJNAccessModifiersClass naccModifier) {
-        if (naccModifier == BJNAccessModifiersClass.ABSTRACT) {
+    public static Modifier getNonAccessModifierForClass(BJNAccessModifierClass naccModifier) {
+        if (naccModifier == BJNAccessModifierClass.ABSTRACT) {
             return Modifier.ABSTRACT;
-        } else if (naccModifier == BJNAccessModifiersClass.DEFAULT) {
+        } else if (naccModifier == BJNAccessModifierClass.DEFAULT) {
             return Modifier.DEFAULT;
         } else {
             return Modifier.FINAL;
@@ -94,8 +96,8 @@ public class Utility {
      * @param naccModifier The non-access modifier for the parameter.
      * @return A modifier.
      */
-    public static Modifier getNonAccessModifierForParameter(BJNAccessModifiersParameter naccModifier) {
-        if (naccModifier == BJNAccessModifiersParameter.DEFAULT) {
+    public static Modifier getNonAccessModifierForParameter(BJNAccessModifierParameter naccModifier) {
+        if (naccModifier == BJNAccessModifierParameter.DEFAULT) {
             return Modifier.DEFAULT;
         } else {
             return Modifier.FINAL;
@@ -138,5 +140,17 @@ public class Utility {
 
     public static TypeName getTypeNameFromString(String _packageName, String _className) {
         return ClassName.get(_packageName, _className);
+    }
+
+    /**
+     * It takes an ArrayList of Strings and returns a String of all the elements in
+     * the ArrayList
+     * separated by commas
+     * 
+     * @param _arrayList The array list you want to convert to a string.
+     * @return A string of the array list.
+     */
+    public static String getArrayString(ArrayList<String> _arrayList) {
+        return String.join(",", _arrayList);
     }
 }

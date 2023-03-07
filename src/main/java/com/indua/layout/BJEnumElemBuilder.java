@@ -1,5 +1,5 @@
 package com.indua.layout;
 
-public class BJParameterElement {
+public class BJEnumElemBuilder {
     
 }

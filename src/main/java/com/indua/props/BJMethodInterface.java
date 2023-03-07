@@ -2,11 +2,11 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifiers;
-import com.indua.utils.BJNAccessModifiersMethod;
+import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJNAccessModifierMethod;
 import com.indua.utils.BJPrimTypes;
 
-public class BJMethodInterface {
+public class BJMethodInterface extends BJMethod{
 
     /**
      * This function creates an instance of the BJMethodInterface class and returns
@@ -21,8 +21,8 @@ public class BJMethodInterface {
     private String _name;
     private ArrayList<BJParameter> _parameterColl;
     private BJPrimTypes _output;
-    private BJAccessModifiers _accModifiers;
-    private BJNAccessModifiersMethod _naccModifiers;
+    private BJAccessModifier _accModifier;
+    private BJNAccessModifierMethod _naccModifier;
 
     private BJMethodInterface() {
 
@@ -100,40 +100,40 @@ public class BJMethodInterface {
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifiers getAccModifiers() {
-        return _accModifiers;
+    public BJAccessModifier getAccModifier() {
+        return _accModifier;
     }
 
     /**
      * This function sets the access modifiers of the method and returns the method.
      * 
-     * @param _accModifiers The access modifiers for the method.
+     * @param _accModifier The access modifiers for the method.
      * @return The object itself.
      */
-    public BJMethodInterface setAccModifiers(BJAccessModifiers _accModifiers) {
-        this._accModifiers = _accModifiers;
+    public BJMethodInterface setAccModifier(BJAccessModifier _accModifier) {
+        this._accModifier = _accModifier;
         return this;
     }
 
     /**
-     * This function returns the value of the variable _naccModifiers
+     * This function returns the value of the variable _naccModifier
      * 
-     * @return The method is returning the value of the variable _naccModifiers.
+     * @return The method is returning the value of the variable _naccModifier.
      */
-    public BJNAccessModifiersMethod getNaccModifiers() {
-        return _naccModifiers;
+    public BJNAccessModifierMethod getNaccModifier() {
+        return _naccModifier;
     }
 
     /**
-     * This function sets the value of the private variable _naccModifiers to the
+     * This function sets the value of the private variable _naccModifier to the
      * value of the parameter
-     * _naccModifiers and returns the value of this.
+     * _naccModifier and returns the value of this.
      * 
-     * @param _naccModifiers The access modifiers for the method.
+     * @param _naccModifier The access modifiers for the method.
      * @return The object itself.
      */
-    public BJMethodInterface setNaccModifiers(BJNAccessModifiersMethod _naccModifiers) {
-        this._naccModifiers = _naccModifiers;
+    public BJMethodInterface setNaccModifier(BJNAccessModifierMethod _naccModifier) {
+        this._naccModifier = _naccModifier;
         return this;
     }
 }

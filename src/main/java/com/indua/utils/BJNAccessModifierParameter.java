@@ -1,6 +1,6 @@
 package com.indua.utils;
 
-public enum BJNAccessModifiersParameter {
+public enum BJNAccessModifierParameter {
     DEFAULT,
     FINAL
 }

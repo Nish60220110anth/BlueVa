@@ -1,6 +1,6 @@
 package com.indua.utils;
 
-public enum BJNAccessModifiersMethod {
+public enum BJNAccessModifierMethod {
     DEFAULT,
     SYNCHRONIZED,
     STATIC,

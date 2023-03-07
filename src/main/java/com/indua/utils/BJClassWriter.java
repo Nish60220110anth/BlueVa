@@ -92,8 +92,8 @@ public class BJClassWriter {
      */
     private TypeSpec createClassSpec() {
         com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.getName());
-        classBuilder = classBuilder.addModifiers(Utility.getAccessModifier(this._class.getAccModifiers()),
-                Utility.getNonAccessModifierForClass(this._class.getNaccModifiers()));
+        classBuilder = classBuilder.addModifiers(Utility.getAccessModifier(this._class.getAccModifier()),
+                Utility.getNonAccessModifierForClass(this._class.getNaccModifier()));
 
         classBuilder = classBuilder
                 .addJavadoc(String.format("Hello , this is Sample Java doc for class %s\n", this._class.getName())
@@ -152,8 +152,8 @@ public class BJClassWriter {
 
         com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodClass.getName());
 
-        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifiers()),
-                Utility.getNonAccessModifierForMethod(_methodClass.getNaccModifiersMethods()));
+        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifier()),
+                Utility.getNonAccessModifierForMethod(_methodClass.getNaccModifier()));
 
         _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodClass.getOutput()));
 
@@ -205,7 +205,7 @@ public class BJClassWriter {
     private FieldSpec createFieldSpec(BJField _field) {
         com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
                 Utility.getTypeNameForPrimTypes(_field.getOutput()),
-                _field.getName(), Utility.getNonAccessModifierForField(_field.getNaccModifiers()))
+                _field.getName(), Utility.getNonAccessModifierForField(_field.getNaccModifier()))
                 .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()));
 
         return fieldBuilder.build();
