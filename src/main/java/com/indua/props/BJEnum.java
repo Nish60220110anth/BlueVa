@@ -111,6 +111,15 @@ public class BJEnum {
     }
 
     /**
+     * This function returns the collection of enum values for this enum.
+     * 
+     * @return An ArrayList of BJEnumValue objects.
+     */
+    public ArrayList<BJEnumValue> getEnumValuesColl() {
+        return _enumvaluesColl;
+    }
+
+    /**
      * This function adds an enum value to the enum values collection.
      * 
      * @param _enumvalue The enum value to add to the enum
