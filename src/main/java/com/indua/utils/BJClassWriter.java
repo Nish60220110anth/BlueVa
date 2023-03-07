@@ -19,77 +19,114 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 
 public class BJClassWriter {
+    /**
+     * Create a new instance of BJClassWriter, passing in the BJClass object that
+     * was created in the
+     * previous step.
+     * 
+     * @param _pclass The class to be written.
+     * @return A new instance of BJClassWriter
+     */
+    public static BJClassWriter createInstance(BJClass _pclass) throws IOException {
+        return new BJClassWriter(_pclass);
+    }
+
     private BJClass _class;
 
     private BJClassWriter(BJClass _pclass) throws IOException {
         _class = _pclass;
-        PreCheck();
+        _preCheck();
     }
 
-    public static BJClassWriter CreateInstance(BJClass _pclass) throws IOException {
-        return new BJClassWriter(_pclass);
+    /**
+     * It creates a JavaFile object, writes it to a folder, and returns a
+     * BJBuildClassOutput object
+     * 
+     * @return The return type is BJBuildClassOutput.
+     */
+    public BJBuildClassOutput build() throws IOException {
+        TypeSpec myclass = createClassSpec();
+        JavaFile javaFile = JavaFile.builder(_class.getPackageName(), myclass).build();
+
+        javaFile.writeTo(getFolderFile());
+
+        return generateClassOutput();
     }
 
-    public BJBuildClassOutput BuildContent() throws IOException {
-        TypeSpec myclass = CreateClassSpec();
-        JavaFile javaFile = JavaFile.builder(_class.GetPackageName(), myclass).build();
-
-        javaFile.writeTo(GetFolderFile());
-
-        return GenerateClassOutput();
-    }
-
-    private void PreCheck() throws IOException {
+    /**
+     * If the output directory doesn't exist, create it
+     */
+    private void _preCheck() throws IOException {
         if (!Files.exists(Paths.get("output"))) {
             Files.createDirectory(Paths.get("output"));
         }
     }
 
-    private File GetFolderFile() {
+    /**
+     * Get the output folder as a File object.
+     * 
+     * @return A File object that represents the folder output.
+     */
+    private File getFolderFile() {
         return Paths.get("./output").toFile();
     }
 
-    private BJBuildClassOutput GenerateClassOutput() {
-        BJBuildClassOutput classOutput = BJBuildClassOutput.CreateInstance()
-                .SetClassName(this._class.GetName())
-                .SetMessage(String.format("Class %s.java successfully created", this._class.GetName()))
-                .SetBuildStatus(BJBuildStatus.SUCCESS);
+    /**
+     * `generateClassOutput()` creates a `BJBuildClassOutput` object and returns it
+     * 
+     * @return A BJBuildClassOutput object.
+     */
+    private BJBuildClassOutput generateClassOutput() {
+        BJBuildClassOutput classOutput = BJBuildClassOutput.createInstance()
+                .setClassName(this._class.getName())
+                .setMessage(String.format("Class %s.java successfully created", this._class.getName()))
+                .setBuildStatus(BJBuildStatus.SUCCESS);
 
         return classOutput;
     }
 
-    private TypeSpec CreateClassSpec() {
-        com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.GetName());
-        classBuilder = classBuilder.addModifiers(Utility.GetAccessModifier(this._class.GetAccModifiers()),
-                Utility.GetNonAccessModifierForClass(this._class.GetNaccModifiers()));
+    /**
+     * It creates a class spec for a class
+     * 
+     * @return A TypeSpec object.
+     */
+    private TypeSpec createClassSpec() {
+        com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.getName());
+        classBuilder = classBuilder.addModifiers(Utility.getAccessModifier(this._class.getAccModifiers()),
+                Utility.getNonAccessModifierForClass(this._class.getNaccModifiers()));
 
         classBuilder = classBuilder
-                .addJavadoc(String.format("Hello , this is Sample Java doc for class %s\n", this._class.GetName())
+                .addJavadoc(String.format("Hello , this is Sample Java doc for class %s\n", this._class.getName())
                         + "@brief\nSome sample brief message");
 
         classBuilder = classBuilder
                 .superclass(
-                        Utility.GetTypeNameFromString(_class.GetPackageName(), _class.GetExtendingClass()).getClass(),
+                        Utility.getTypeNameFromString(_class.getPackageName(), _class.getExtendingClass()).getClass(),
                         true);
 
-        classBuilder = classBuilder.addMethod(CreateConstructor());
-        for (BJMethodClass methodClass : this._class.GetMethodColl()) {
-            classBuilder = classBuilder.addMethod(CreateMethodSpec(methodClass));
+        classBuilder = classBuilder.addMethod(createConstructor());
+        for (BJMethodClass methodClass : this._class.getMethodColl()) {
+            classBuilder = classBuilder.addMethod(createMethodSpec(methodClass));
         }
 
-        for (BJField field : this._class.GetFieldColl()) {
-            classBuilder = classBuilder.addField(CreateFieldSpec(field));
+        for (BJField field : this._class.getFieldColl()) {
+            classBuilder = classBuilder.addField(createFieldSpec(field));
         }
 
-        for (String interfaceName : _class.GetImplementingInterfaces()) {
-            classBuilder = classBuilder.addSuperinterface(Utility.GetTypeNameFromString(_class.GetPackageName(),
+        for (String interfaceName : _class.getImplementingInterfaces()) {
+            classBuilder = classBuilder.addSuperinterface(Utility.getTypeNameFromString(_class.getPackageName(),
                     interfaceName));
         }
 
         return classBuilder.build();
     }
 
-    private MethodSpec CreateConstructor() {
+    /**
+     * It creates a constructor for the class
+     * 
+     * @return A MethodSpec object.
+     */
+    private MethodSpec createConstructor() {
         com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder();
 
         methodBuilder = methodBuilder.addModifiers(Modifier.PUBLIC)
@@ -99,29 +136,36 @@ public class BJClassWriter {
                 .endControlFlow();
 
         methodBuilder = methodBuilder.addJavadoc(String.format("Sample Constructor Java doc for Class %s", this._class
-                .GetName()));
+                .getName()));
 
         return methodBuilder.build();
     }
 
-    private MethodSpec CreateMethodSpec(BJMethodClass _methodClass) {
+    /**
+     * It creates a method spec for a given method class
+     * 
+     * @param _methodClass This is the class that holds all the information about
+     *                     the method.
+     * @return A MethodSpec object.
+     */
+    private MethodSpec createMethodSpec(BJMethodClass _methodClass) {
 
-        com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodClass.GetName());
+        com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodClass.getName());
 
-        _methodBuilder = _methodBuilder.addModifiers(Utility.GetAccessModifier(_methodClass.GetAccModifiers()),
-                Utility.GetNonAccessModifierForMethod(_methodClass.GetNaccModifiersMethods()));
+        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifiers()),
+                Utility.getNonAccessModifierForMethod(_methodClass.getNaccModifiersMethods()));
 
-        _methodBuilder = _methodBuilder.returns(Utility.GetTypeNameForPrimTypes(_methodClass.GetOutput()));
+        _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodClass.getOutput()));
 
-        for (BJParameter parameter : _methodClass.GetParameterColl()) {
-            _methodBuilder = _methodBuilder.addParameter(CreateParameterSpec(parameter));
+        for (BJParameter parameter : _methodClass.getParameterColl()) {
+            _methodBuilder = _methodBuilder.addParameter(createParameterSpec(parameter));
         }
 
         _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s",
-                _methodClass.GetName(), _methodClass.GetBjId().GetId()));
+                _methodClass.getName(), _methodClass.getBjId().getId()));
 
         _methodBuilder = _methodBuilder.beginControlFlow("for (int i=0 ; i < 100 ; i++)")
-                .addStatement(GetCodeFromId(_methodClass.GetBjId()))
+                .addStatement(getCodeFromId(_methodClass.getBjId()))
                 .beginControlFlow("if(i == 69)")
                 .addStatement("System.out.println(\"I got 69\");")
                 .nextControlFlow("else if( i == 9)")
@@ -133,26 +177,41 @@ public class BJClassWriter {
         return _methodBuilder.build();
     }
 
-    private ParameterSpec CreateParameterSpec(BJParameter _parameter) {
+    /**
+     * It creates a ParameterSpec object for a given BJParameter object
+     * 
+     * @param _parameter This is the parameter object that contains the information
+     *                   about the parameter.
+     * @return A ParameterSpec object.
+     */
+
+    private ParameterSpec createParameterSpec(BJParameter _parameter) {
         com.squareup.javapoet.ParameterSpec.Builder _parameterBuilder = ParameterSpec.builder(
-                Utility.GetTypeNameForPrimTypes(_parameter.GetOutput()),
-                _parameter.GetName(), Utility.GetNonAccessModifierForParameter(_parameter.GetNaccModifier()))
+                Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
+                _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
                 .addJavadoc(
-                        String.format("Sample Java doc for Parameter %s", _parameter.GetName()));
+                        String.format("Sample Java doc for Parameter %s", _parameter.getName()));
 
         return _parameterBuilder.build();
     }
 
-    private FieldSpec CreateFieldSpec(BJField _field) {
+    /**
+     * It creates a field spec for a given field
+     * 
+     * @param _field This is the field object that contains all the information
+     *               about the field.
+     * @return A FieldSpec object.
+     */
+    private FieldSpec createFieldSpec(BJField _field) {
         com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
-                Utility.GetTypeNameForPrimTypes(_field.GetOutput()),
-                _field.GetName(), Utility.GetNonAccessModifierForField(_field.GetNaccModifiers()))
-                .addJavadoc(String.format("Sample Jav doc for Field %s", _field.GetName()));
+                Utility.getTypeNameForPrimTypes(_field.getOutput()),
+                _field.getName(), Utility.getNonAccessModifierForField(_field.getNaccModifiers()))
+                .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()));
 
         return fieldBuilder.build();
     }
 
-    private String GetCodeFromId(BJId bjId) {
+    private String getCodeFromId(BJId bjId) {
         return String.format("System.out.println(\"Hello India\")\n");
     }
 

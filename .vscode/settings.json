@@ -2,4 +2,7 @@
     "editor.multiCursorModifier": "ctrlCmd",
     "java.configuration.updateBuildConfiguration": "interactive",
     "tabnine.experimentalAutoImports": true,
+    "docwriter.style": "Javadoc",
+    "docwriter.progress.trackMethods": false,
+    "docwriter.progress.trackFunctions": false,
 }

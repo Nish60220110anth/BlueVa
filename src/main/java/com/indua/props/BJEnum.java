@@ -2,19 +2,35 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifers;
+import com.indua.utils.BJAccessModifiers;
 
 public class BJEnum {
-    public static BJEnum CreateInstance(String _ppackageName) {
+    /**
+     * The function creates a new instance of the class BJEnum
+     * 
+     * @param _ppackageName The package name of the enum class.
+     * @return A new instance of BJEnum.
+     */
+    public static BJEnum createInstance(String _ppackageName) {
         return new BJEnum(_ppackageName);
     }
-    public static ArrayList<BJEnumValue> GenerateEnumValues(ArrayList<String> _enumStr , Boolean reqDefault) {
+
+    /**
+     * It takes an array of strings and returns an array of BJEnumValue objects
+     * 
+     * @param _enumStr   An array of strings that will be used to generate the enum
+     *                   values.
+     * @param reqDefault If true, the first value in the enum will be "DEFAULT" and
+     *                   will have a value of 0.
+     * @return An ArrayList of BJEnumValue objects.
+     */
+    public static ArrayList<BJEnumValue> generateEnumValues(ArrayList<String> _enumStr, Boolean reqDefault) {
         ArrayList<BJEnumValue> _enumValues = new ArrayList<>();
         int count = 1;
-        _enumValues.add(BJEnumValue.CreateInstance().SetName("DEFAULT").SetValue(0));
+        _enumValues.add(BJEnumValue.createInstance().setName("DEFAULT").setValue(0));
 
-        for(String str : _enumStr) {
-            _enumValues.add(BJEnumValue.CreateInstance().SetName(str).SetValue(count));
+        for (String str : _enumStr) {
+            _enumValues.add(BJEnumValue.createInstance().setName(str).setValue(count));
             count += 1;
         }
 
@@ -22,42 +38,85 @@ public class BJEnum {
     }
 
     private String _name;
-    private BJAccessModifers _accModifiers;
+    private BJAccessModifiers _accModifiers;
     private ArrayList<BJEnumValue> _enumvaluesColl;
     private final String _packageName;
 
     private BJEnum(String _ppackageName) {
         _enumvaluesColl = new ArrayList<>();
         this._packageName = _ppackageName;
+
+        _name = "DefaultEnum";
+        _accModifiers = BJAccessModifiers.DEFAULT;
     }
 
-    public String GetPackageName() {
+    /**
+     * It returns the package name of the enum.
+     * 
+     * @return The package name of the enum.
+     */
+    public String getPackageName() {
         return this._packageName;
     }
 
-    public String GetName() {
+    /**
+     * It returns the name of the enum.
+     * 
+     * @return The name of the enum.
+     */
+    public String getName() {
         return _name;
     }
 
-    public BJEnum SetName(String _name) {
+    /**
+     * Sets name of the enum
+     * 
+     * @param _name The name of the enum.
+     * @return The enum itself.
+     */
+    public BJEnum setName(String _name) {
         this._name = _name;
         return this;
     }
 
-    public BJAccessModifers GetAccModifiers() {
+    /**
+     * It returns the access modifiers of the class.
+     * 
+     * @return The access modifiers of the class.
+     */
+    public BJAccessModifiers getAccModifiers() {
         return _accModifiers;
     }
 
-    public BJEnum SetAccModifiers(BJAccessModifers _accModifiers) {
+    /**
+     * This function sets the access modifiers of the enum to the access modifiers
+     * passed in as a
+     * parameter.
+     * 
+     * @param _accModifiers The access modifiers for the enum.
+     * @return The object itself.
+     */
+    public BJEnum setAccModifiers(BJAccessModifiers _accModifiers) {
         this._accModifiers = _accModifiers;
         return this;
     }
 
-    public ArrayList<BJEnumValue> GetEnumvaluesColl() {
+    /**
+     * This function returns the value of the private variable _enumvaluesColl.
+     * 
+     * @return The return type is an ArrayList of BJEnumValue objects.
+     */
+    public ArrayList<BJEnumValue> setEnumvaluesColl() {
         return _enumvaluesColl;
     }
 
-    public BJEnum AddEnumValues(BJEnumValue _enumvalue) {
+    /**
+     * This function adds an enum value to the enum values collection.
+     * 
+     * @param _enumvalue The enum value to add to the enum
+     * @return The object itself.
+     */
+    public BJEnum addEnumValues(BJEnumValue _enumvalue) {
         this._enumvaluesColl.add(_enumvalue);
         return this;
     }

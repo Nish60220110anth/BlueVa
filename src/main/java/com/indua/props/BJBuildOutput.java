@@ -3,8 +3,18 @@ package com.indua.props;
 import java.util.ArrayList;
 
 public class BJBuildOutput {
+    /**
+     * It creates an instance of BJBuildOutput.
+     * 
+     * @return A new instance of BJBuildOutput.
+     */
+    public static BJBuildOutput createInstance() {
+        return new BJBuildOutput();
+    }
+
     private ArrayList<BJBuildClassOutput> _classOutputs;
     private ArrayList<BJBuildEnumOutput> _enumOutputs;
+
     private ArrayList<BJBuildInterfaceOutput> _interfaceOutputs;
 
     private BJBuildOutput() {
@@ -13,34 +23,61 @@ public class BJBuildOutput {
         _interfaceOutputs = new ArrayList<>();
     }
 
-    public static BJBuildOutput CreateInstance() {
-        return new BJBuildOutput();
-    }
-
-    public BJBuildOutput AddBuildClassOutput(BJBuildClassOutput _classOutput) {
+    /**
+     * It adds a class output to the build output
+     * 
+     * @param _classOutput The class output to add to the build output.
+     * @return The BJBuildOutput object.
+     */
+    public BJBuildOutput addBuildClassOutput(BJBuildClassOutput _classOutput) {
         _classOutputs.add(_classOutput);
         return this;
     }
 
-    public BJBuildOutput AddBuildInterfaceOutput(BJBuildInterfaceOutput _interfaceOutput) {
+    /**
+     * @param _interfaceOutput The interface output to add to the build output.
+     * @return The BJBuildOutput object.
+     */
+    public BJBuildOutput addBuildInterfaceOutput(BJBuildInterfaceOutput _interfaceOutput) {
         _interfaceOutputs.add(_interfaceOutput);
         return this;
     }
 
-    public BJBuildOutput AddBuildEnumOutput(BJBuildEnumOutput _enumOutput) {
+    /**
+     * It adds a BJBuildEnumOutput to the list of BJBuildEnumOutputs
+     * 
+     * @param _enumOutput The enum output to add to the build output.
+     * @return The BJBuildOutput object.
+     */
+    public BJBuildOutput addBuildEnumOutput(BJBuildEnumOutput _enumOutput) {
         _enumOutputs.add(_enumOutput);
         return this;
     }
 
-    public ArrayList<BJBuildClassOutput> GetClassOutputColl() {
+    /**
+     * It returns the class outputs.
+     * 
+     * @return An ArrayList of BJBuildClassOutput objects.
+     */
+    public ArrayList<BJBuildClassOutput> getClassOutputColl() {
         return this._classOutputs;
     }
 
-    public ArrayList<BJBuildEnumOutput> GetEnumOutputColl() {
+    /**
+     * This function returns an ArrayList of BJBuildEnumOutput objects
+     * 
+     * @return An ArrayList of BJBuildEnumOutput objects.
+     */
+    public ArrayList<BJBuildEnumOutput> getEnumOutputColl() {
         return this._enumOutputs;
     }
 
-    public ArrayList<BJBuildInterfaceOutput> GetInterfaceOutputColl() {
+    /**
+     * This function returns an ArrayList of BJBuildInterfaceOutput objects
+     * 
+     * @return An ArrayList of BJBuildInterfaceOutput objects.
+     */
+    public ArrayList<BJBuildInterfaceOutput> getInterfaceOutputColl() {
         return this._interfaceOutputs;
     }
 }
