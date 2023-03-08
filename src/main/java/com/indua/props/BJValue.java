@@ -1,19 +1,19 @@
 package com.indua.props;
 
-public class BJEnumValue {
+public class BJValue {
     /**
      * Creates new instance of BJEnum
      * 
      * @return A new instance of BJEnumValue
      */
-    public static BJEnumValue createInstance() {
-        return new BJEnumValue();
+    public static BJValue createInstance() {
+        return new BJValue();
     }
 
     private String _name;
     private int _value;
 
-    private BJEnumValue() {
+    private BJValue() {
 
     }
 
@@ -32,7 +32,7 @@ public class BJEnumValue {
      * @param _name The name of the enum value.
      * @return The object itself.
      */
-    public BJEnumValue setName(String _name) {
+    public BJValue setName(String _name) {
         this._name = _name;
         return this;
     }
@@ -54,7 +54,7 @@ public class BJEnumValue {
      * @return The value of the enum.
      */
 
-    public BJEnumValue setValue(int _pvalue) {
+    public BJValue setValue(int _pvalue) {
         this._value = _pvalue;
         return this;
     }

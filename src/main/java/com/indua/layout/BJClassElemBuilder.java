@@ -51,12 +51,13 @@ public class BJClassElemBuilder implements IElement {
         _element.setAttributeNode(naccmodAttr);
 
         for (BJField _field : _class.getFieldColl()) {
-            _element.appendChild(BJElementBuilder.createInstance(_document).createField(_field).build());
+            _element.appendChild(BJElementBuilder.createInstance(_document).createFieldBuilder(_field).build());
         }
 
         for (BJMethod _method : _class.getMethodColl()) {
             _element.appendChild(
-                    BJElementBuilder.createInstance(_document).createMethod(BJMethodType.CLASS, _method).build());
+                    ((BJMethodClassElemBuilder) BJElementBuilder.createInstance(_document)
+                            .createMethodBuilder(BJMethodType.CLASS, _method)).build());
         }
 
         return _element;

@@ -53,7 +53,7 @@ public class BJPackage {
      * 
      * @return The package name.
      */
-    public String getPackageName() {
+    public String getName() {
         return _packageName;
     }
 

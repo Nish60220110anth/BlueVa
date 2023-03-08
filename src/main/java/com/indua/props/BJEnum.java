@@ -24,13 +24,13 @@ public class BJEnum {
      *                   will have a value of 0.
      * @return An ArrayList of BJEnumValue objects.
      */
-    public static ArrayList<BJEnumValue> generateEnumValues(ArrayList<String> _enumStr, Boolean reqDefault) {
-        ArrayList<BJEnumValue> _enumValues = new ArrayList<>();
+    public static ArrayList<BJValue> generateEnumValues(ArrayList<String> _enumStr, Boolean reqDefault) {
+        ArrayList<BJValue> _enumValues = new ArrayList<>();
         int count = 1;
-        _enumValues.add(BJEnumValue.createInstance().setName("DEFAULT").setValue(0));
+        _enumValues.add(BJValue.createInstance().setName("DEFAULT").setValue(0));
 
         for (String str : _enumStr) {
-            _enumValues.add(BJEnumValue.createInstance().setName(str).setValue(count));
+            _enumValues.add(BJValue.createInstance().setName(str).setValue(count));
             count += 1;
         }
 
@@ -39,7 +39,7 @@ public class BJEnum {
 
     private String _name;
     private BJAccessModifier _accModifier;
-    private ArrayList<BJEnumValue> _enumvaluesColl;
+    private ArrayList<BJValue> _enumvaluesColl;
     private final String _packageName;
 
     private BJEnum(String _ppackageName) {
@@ -106,7 +106,7 @@ public class BJEnum {
      * 
      * @return The return type is an ArrayList of BJEnumValue objects.
      */
-    public ArrayList<BJEnumValue> setEnumvaluesColl() {
+    public ArrayList<BJValue> setValueColl() {
         return _enumvaluesColl;
     }
 
@@ -115,7 +115,7 @@ public class BJEnum {
      * 
      * @return An ArrayList of BJEnumValue objects.
      */
-    public ArrayList<BJEnumValue> getEnumValuesColl() {
+    public ArrayList<BJValue> getValueColl() {
         return _enumvaluesColl;
     }
 
@@ -125,7 +125,7 @@ public class BJEnum {
      * @param _enumvalue The enum value to add to the enum
      * @return The object itself.
      */
-    public BJEnum addEnumValues(BJEnumValue _enumvalue) {
+    public BJEnum addEnumValues(BJValue _enumvalue) {
         this._enumvaluesColl.add(_enumvalue);
         return this;
     }

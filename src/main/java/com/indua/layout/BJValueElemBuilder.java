@@ -4,15 +4,15 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.indua.props.BJEnumValue;
+import com.indua.props.BJValue;
 
 public class BJValueElemBuilder {
     private final Document _document;
     private Element _element;
-    private final BJEnumValue _value;
+    private final BJValue _value;
 
     // Creating a new element called value.
-    public BJValueElemBuilder(Document _pdocument, BJEnumValue _pvalue) {
+    public BJValueElemBuilder(Document _pdocument, BJValue _pvalue) {
         _document = _pdocument;
         _value = _pvalue;
 

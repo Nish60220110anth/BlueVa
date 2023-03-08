@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import com.indua.props.BJBuildEnumOutput;
 import com.indua.props.BJEnum;
-import com.indua.props.BJEnumValue;
+import com.indua.props.BJValue;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
@@ -57,7 +57,7 @@ public class BJEnumWriter {
 
         enumBuilder = enumBuilder.addModifiers(Utility.getAccessModifier(_enum.getAccModifier()));
 
-        for (BJEnumValue _value : _enum.getEnumValuesColl()) {
+        for (BJValue _value : _enum.getValueColl()) {
             enumBuilder = enumBuilder.addEnumConstant(_value.getName(),
                     TypeSpec.anonymousClassBuilder("$L", _value.getValue()).build());
         }
