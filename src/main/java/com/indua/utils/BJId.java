@@ -8,14 +8,14 @@ public class BJId {
      * 
      * @return A new instance of BJId
      */
-    public static BJId createInstance() {
-        return new BJId();
+    public static BJId createInstance(UUID _pid) {
+        return new BJId(_pid);
     }
 
-    private UUID _id;
+    private final UUID _id;
 
-    private BJId() {
-
+    private BJId(UUID _pid) {
+        _id = _pid;
     }
 
     /**
@@ -25,17 +25,6 @@ public class BJId {
      */
     public UUID getId() {
         return _id;
-    }
-
-    /**
-     * This function sets the value of the _id variable to the value of the _id
-     * parameter
-     * 
-     * @param _id The unique identifier for the document.
-     */
-
-    public void setId(UUID _id) {
-        this._id = _id;
     }
 
    /**
