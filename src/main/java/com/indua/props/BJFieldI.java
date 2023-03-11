@@ -1,26 +1,26 @@
 package com.indua.props;
 
-import com.indua.utils.BJAccessModifier;
-import com.indua.utils.BJNAccessModifierFieldC;
+import com.indua.utils.BJAccessModifierFieldI;
+import com.indua.utils.BJNAccessModifierFieldI;
 import com.indua.utils.BJPrimTypes;
 
-public class BJField {
+public class BJFieldI {
     /**
-     * Creates new instance of BJField
+     * Creates new instance of BJFieldI
      * 
-     * @return A new instance of BJField.
+     * @return A new instance of BJFieldI.
      */
-    public static BJField createInstance() {
-        return new BJField();
+    public static BJFieldI createInstance() {
+        return new BJFieldI();
     }
 
     private String _name;
     private BJPrimTypes _output;
     private String _value;
-    private BJAccessModifier _accModifier;
-    private BJNAccessModifierFieldC _naccModifierField;
+    private BJAccessModifierFieldI _accModifier;
+    private BJNAccessModifierFieldI _naccModifierField;
 
-    private BJField() {
+    private BJFieldI() {
 
     }
 
@@ -40,7 +40,7 @@ public class BJField {
      * @param _value The value of the field.
      * @return The object itself.
      */
-    public BJField setValue(String _value) {
+    public BJFieldI setValue(String _value) {
         this._value = _value;
         return this;
     }
@@ -60,7 +60,7 @@ public class BJField {
      * @param _name The name of the field.
      * @return The object itself.
      */
-    public BJField setName(String _name) {
+    public BJFieldI setName(String _name) {
         this._name = _name;
         return this;
     }
@@ -75,13 +75,13 @@ public class BJField {
     }
 
     /**
-     * This function sets the output of the BJField to the value of the parameter
+     * This function sets the output of the BJFieldI to the value of the parameter
      * _output
      * 
      * @param _output The type of the output of the field.
-     * @return The BJField object.
+     * @return The BJFieldI object.
      */
-    public BJField setOutput(BJPrimTypes _output) {
+    public BJFieldI setOutput(BJPrimTypes _output) {
         this._output = _output;
         return this;
     }
@@ -91,7 +91,7 @@ public class BJField {
      * 
      * @return The access modifier of the class.
      */
-    public BJAccessModifier getAccModifier() {
+    public BJAccessModifierFieldI getAccModifier() {
         return _accModifier;
     }
 
@@ -101,7 +101,7 @@ public class BJField {
      * @param _accModifier The access modifier for the field.
      * @return The object itself.
      */
-    public BJField setAccModifier(BJAccessModifier _paccModifier) {
+    public BJFieldI setAccModifier(BJAccessModifierFieldI _paccModifier) {
         this._accModifier = _paccModifier;
         return this;
     }
@@ -112,7 +112,7 @@ public class BJField {
      * @return The _naccModifierField variable is being returned.
      */
 
-    public BJNAccessModifierFieldC getNaccModifier() {
+    public BJNAccessModifierFieldI getNaccModifier() {
         return _naccModifierField;
     }
 
@@ -124,7 +124,7 @@ public class BJField {
      * @param _naccModifiersMethods The access modifier for the method.
      * @return The object itself.
      */
-    public BJField setNaccModifier(BJNAccessModifierFieldC _pnaccModifierMethods) {
+    public BJFieldI setNaccModifier(BJNAccessModifierFieldI _pnaccModifierMethods) {
         this._naccModifierField = _pnaccModifierMethods;
         return this;
     }

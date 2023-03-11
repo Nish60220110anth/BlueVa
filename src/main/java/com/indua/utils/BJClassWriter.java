@@ -92,7 +92,7 @@ public class BJClassWriter {
      */
     private TypeSpec createClassSpec() {
         com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.getName());
-        classBuilder = classBuilder.addModifiers(Utility.getAccessModifier(this._class.getAccModifier()),
+        classBuilder = classBuilder.addModifiers(Utility.getAccessModifierCI(this._class.getAccModifier()),
                 Utility.getNonAccessModifierForClass(this._class.getNaccModifier()));
 
         classBuilder = classBuilder

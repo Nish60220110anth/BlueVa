@@ -2,7 +2,7 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJAccessModifierCI;
 
 public class BJInterface {
     /**
@@ -18,16 +18,33 @@ public class BJInterface {
 
     private String _name;
     private ArrayList<String> _implementingInterfaces;
-    private BJAccessModifier _accModifier;
+    private BJAccessModifierCI _accModifier;
     private final String _packageName;
     private ArrayList<BJMethodInterface> _methodColl;
+    private ArrayList<BJFieldI> _fieldColl;
 
+    // A constructor.
     private BJInterface(String _ppackageName) {
         _implementingInterfaces = new ArrayList<>();
         _methodColl = new ArrayList<>();
-        _accModifier = BJAccessModifier.DEFAULT;
+        _accModifier = BJAccessModifierCI.DEFAULT;
+        _fieldColl = new ArrayList<>();
 
         this._packageName = _ppackageName;
+    }
+
+    /**
+     * This function returns the field collection
+     * 
+     * @return An ArrayList of BJFieldI objects.
+     */
+    public ArrayList<BJFieldI> getFieldColl() {
+        return _fieldColl;
+    }
+
+    public BJInterface addField(BJFieldI _pfield) {
+        this._fieldColl.add(_pfield);
+        return this;
     }
 
     /**
@@ -107,7 +124,7 @@ public class BJInterface {
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifier getAccModifier() {
+    public BJAccessModifierCI getAccModifier() {
         return _accModifier;
     }
 
@@ -117,7 +134,7 @@ public class BJInterface {
      * @param _accModifier The access modifiers for the interface.
      * @return The object itself.
      */
-    public BJInterface setAccModifier(BJAccessModifier _accModifier) {
+    public BJInterface setAccModifier(BJAccessModifierCI _accModifier) {
         this._accModifier = _accModifier;
         return this;
     }

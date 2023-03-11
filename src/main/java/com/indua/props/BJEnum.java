@@ -2,7 +2,7 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJAccessModifierE;
 
 public class BJEnum {
     /**
@@ -38,7 +38,7 @@ public class BJEnum {
     }
 
     private String _name;
-    private BJAccessModifier _accModifier;
+    private BJAccessModifierE _accModifier;
     private ArrayList<BJValue> _enumvaluesColl;
     private final String _packageName;
 
@@ -47,7 +47,7 @@ public class BJEnum {
         this._packageName = _ppackageName;
 
         _name = "DefaultEnum";
-        _accModifier = BJAccessModifier.DEFAULT;
+        _accModifier = BJAccessModifierE.DEFAULT;
     }
 
     /**
@@ -84,7 +84,7 @@ public class BJEnum {
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifier getAccModifier() {
+    public BJAccessModifierE getAccModifier() {
         return _accModifier;
     }
 
@@ -96,7 +96,7 @@ public class BJEnum {
      * @param _accModifier The access modifiers for the enum.
      * @return The object itself.
      */
-    public BJEnum setAccModifier(BJAccessModifier _accModifier) {
+    public BJEnum setAccModifier(BJAccessModifierE _accModifier) {
         this._accModifier = _accModifier;
         return this;
     }

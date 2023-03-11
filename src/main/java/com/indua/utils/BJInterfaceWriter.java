@@ -53,7 +53,7 @@ public class BJInterfaceWriter {
      */
     public TypeSpec createInterfaceSpec() {
         com.squareup.javapoet.TypeSpec.Builder interfaceBuilder = TypeSpec.interfaceBuilder(this._interface.getName());
-        interfaceBuilder = interfaceBuilder.addModifiers(Utility.getAccessModifier(this._interface.getAccModifier()));
+        interfaceBuilder = interfaceBuilder.addModifiers(Utility.getAccessModifierCI(this._interface.getAccModifier()));
 
         interfaceBuilder = interfaceBuilder
                 .addJavadoc(

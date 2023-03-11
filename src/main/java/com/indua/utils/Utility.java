@@ -33,14 +33,14 @@ public class Utility {
      * @param naccModifier The non-access modifier for the field.
      * @return A modifier.
      */
-    public static Modifier getNonAccessModifierForField(BJNAccessModifierField naccModifier) {
-        if (naccModifier == BJNAccessModifierField.DEFAULT) {
+    public static Modifier getNonAccessModifierForField(BJNAccessModifierFieldC naccModifier) {
+        if (naccModifier == BJNAccessModifierFieldC.DEFAULT) {
             return Modifier.DEFAULT;
-        } else if (naccModifier == BJNAccessModifierField.FINAL) {
+        } else if (naccModifier == BJNAccessModifierFieldC.FINAL) {
             return Modifier.FINAL;
-        } else if (naccModifier == BJNAccessModifierField.STATIC) {
+        } else if (naccModifier == BJNAccessModifierFieldC.STATIC) {
             return Modifier.STATIC;
-        } else if (naccModifier == BJNAccessModifierField.TRANSIENT) {
+        } else if (naccModifier == BJNAccessModifierFieldC.TRANSIENT) {
             return Modifier.TRANSIENT;
         } else {
             return Modifier.VOLATILE;
@@ -152,5 +152,35 @@ public class Utility {
      */
     public static String getArrayString(ArrayList<String> _arrayList) {
         return String.join(",", _arrayList);
+    }
+
+    /**
+     * It takes a BJAccessModifierCI enum and returns a Modifier enum
+     * 
+     * @param accModifer BJAccessModifierCI.DEFAULT
+     * @return A Modifier object.
+     */
+    public static Modifier getAccessModifierCI(BJAccessModifierCI accModifer) {
+        if (accModifer == BJAccessModifierCI.DEFAULT) {
+            return Modifier.DEFAULT;
+        } else if (accModifer == BJAccessModifierCI.ABSTRACT) {
+            return Modifier.ABSTRACT;
+        } else {
+            return Modifier.PUBLIC;
+        }
+    }
+
+    /**
+     * If the access modifier is default, return default, otherwise return public.
+     * 
+     * @param accModifer BJAccessModifierE
+     * @return Modifier.DEFAULT or Modifier.PUBLIC
+     */
+    public static Modifier getAccessModifierE(BJAccessModifierE accModifer) {
+        if (accModifer == BJAccessModifierE.DEFAULT) {
+            return Modifier.DEFAULT;
+        } else {
+            return Modifier.PUBLIC;
+        }
     }
 }

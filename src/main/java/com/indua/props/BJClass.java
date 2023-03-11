@@ -2,7 +2,7 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJAccessModifierCI;
 import com.indua.utils.BJNAccessModifierClass;
 
 public class BJClass extends BJNode {
@@ -19,7 +19,7 @@ public class BJClass extends BJNode {
 
     private String _extendingClass;
     private ArrayList<String> _implementingInterfaces;
-    private BJAccessModifier _accModifier;
+    private BJAccessModifierCI _accModifier;
     private BJNAccessModifierClass _naccModifier;
     private ArrayList<BJMethodClass> _methodColl;
     private ArrayList<BJField> _fieldColl;
@@ -31,7 +31,7 @@ public class BJClass extends BJNode {
         _fieldColl = new ArrayList<>();
         _packageName = _ppackageName;
 
-        _accModifier = BJAccessModifier.DEFAULT;
+        _accModifier = BJAccessModifierCI.DEFAULT;
         _naccModifier = BJNAccessModifierClass.DEFAULT;
     }
 
@@ -92,7 +92,7 @@ public class BJClass extends BJNode {
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifier getAccModifier() {
+    public BJAccessModifierCI getAccModifier() {
         return _accModifier;
     }
 
@@ -104,7 +104,7 @@ public class BJClass extends BJNode {
      * @param _accModifier The access modifiers for the class.
      * @return The object itself.
      */
-    public BJClass setAccModifier(BJAccessModifier _accModifier) {
+    public BJClass setAccModifier(BJAccessModifierCI _accModifier) {
         this._accModifier = _accModifier;
         return this;
     }
