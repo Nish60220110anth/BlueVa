@@ -14,7 +14,12 @@ Blueprint for java
 > 3. *add documentation*
 
 
-### To be done
-1. Code Reader
-2. Layout Reader
-3. Use of Json reader in Layout
+### Components
+1. [x] Global Properties
+2. [x] Utility
+3. [x] Layout writer
+4. [x] Node Writer
+5. [ ] Code Reader
+6. [x] Code Writer
+7. [ ] Layout Reader
+8. [ ] Code Reader in Layout
