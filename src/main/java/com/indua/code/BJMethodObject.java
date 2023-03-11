@@ -14,6 +14,7 @@ public class BJMethodObject {
     private ArrayList<BJTagObject> _tagColl;
     private boolean _hasTags;
 
+    // A constructor.
     public BJMethodObject(BJId _pid) {
         this._id = _pid;
         _hasTags = false;
@@ -21,13 +22,33 @@ public class BJMethodObject {
         _tagColl = new ArrayList<>();
     }
 
+    /**
+     * Returns the name
+     * 
+     * @return The name of the person.
+     */
     public String getName() {
         return _name;
     }
 
+    /**
+     * This function returns a boolean value that indicates whether the current
+     * object has tags
+     * 
+     * @return A boolean value.
+     */
     public boolean getHasTags() {
         return this._hasTags;
     }
+
+    /**
+     * This function sets the value of the private variable _hasTags to the value of
+     * the parameter
+     * _pHasTags and returns the object
+     * 
+     * @param _pHasTags boolean
+     * @return The object itself.
+     */
 
     public BJMethodObject setHasTags(boolean _pHasTags) {
         this._hasTags = _pHasTags;
