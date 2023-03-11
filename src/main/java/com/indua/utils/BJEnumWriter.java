@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.indua.props.BJBuildEnumOutput;
+import com.indua.props.BJBuildStatus;
 import com.indua.props.BJEnum;
 import com.indua.props.BJValue;
 import com.squareup.javapoet.JavaFile;

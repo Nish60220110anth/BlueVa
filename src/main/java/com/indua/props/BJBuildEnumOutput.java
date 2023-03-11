@@ -1,7 +1,5 @@
 package com.indua.props;
 
-import com.indua.utils.BJBuildStatus;
-
 public class BJBuildEnumOutput {
     /**
      * This function creates an instance of the BJBuildEnumOutput class.

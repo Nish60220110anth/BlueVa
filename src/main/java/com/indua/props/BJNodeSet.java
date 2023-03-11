@@ -1,4 +1,4 @@
-package com.indua.utils;
+package com.indua.props;
 
 public class BJNodeSet {
     private BJNodeSet() {

@@ -1,6 +1,6 @@
 package com.indua.code;
 
-import com.indua.utils.BJTag;
+import com.indua.props.BJTag;
 
 public class BJTagObject {
     private final BJTag _tag;

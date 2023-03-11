@@ -13,6 +13,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.indua.props.BJAccessModifier;
+import com.indua.props.BJAccessModifierCI;
+import com.indua.props.BJAccessModifierE;
+import com.indua.props.BJNAccessModifierClass;
+import com.indua.props.BJNAccessModifierFieldC;
+import com.indua.props.BJNAccessModifierMethod;
+import com.indua.props.BJNAccessModifierParameter;
+import com.indua.props.BJPrimTypes;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 

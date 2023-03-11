@@ -1,7 +1,5 @@
 package com.indua.props;
 
-import com.indua.utils.BJBuildStatus;
-
 public class BJBuildClassOutput {
     /**
      * It creates an instance of the BJBuildClassOutput class.

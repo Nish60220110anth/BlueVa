@@ -8,8 +8,10 @@ import java.nio.file.Paths;
 import javax.lang.model.element.Modifier;
 
 import com.indua.props.BJBuildClassOutput;
+import com.indua.props.BJBuildStatus;
 import com.indua.props.BJClass;
 import com.indua.props.BJField;
+import com.indua.props.BJId;
 import com.indua.props.BJMethodClass;
 import com.indua.props.BJParameter;
 import com.squareup.javapoet.FieldSpec;

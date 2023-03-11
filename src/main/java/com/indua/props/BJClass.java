@@ -2,9 +2,6 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifierCI;
-import com.indua.utils.BJNAccessModifierClass;
-
 public class BJClass extends BJNode {
 
     /**

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.indua.props.BJBuildInterfaceOutput;
+import com.indua.props.BJBuildStatus;
 import com.indua.props.BJInterface;
 import com.indua.props.BJMethodInterface;
 import com.indua.props.BJParameter;

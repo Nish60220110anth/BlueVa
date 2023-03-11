@@ -2,8 +2,8 @@ package com.indua.code;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJId;
-import com.indua.utils.BJNodeSet;
+import com.indua.props.BJId;
+import com.indua.props.BJNodeSet;
 
 public class BJMethodObject {
 

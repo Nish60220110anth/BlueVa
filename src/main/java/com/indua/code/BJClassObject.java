@@ -3,7 +3,7 @@ package com.indua.code;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.indua.utils.BJId;
+import com.indua.props.BJId;
 
 public class BJClassObject {
 
