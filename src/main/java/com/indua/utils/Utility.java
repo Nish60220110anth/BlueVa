@@ -2,8 +2,17 @@ package com.indua.utils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.lang.model.element.Modifier;
+
+import org.json.simple.JSONValue;
+
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
@@ -182,5 +191,17 @@ public class Utility {
         } else {
             return Modifier.PUBLIC;
         }
+    }
+
+    /**
+     * It takes a HashMap<String, Object> and returns a JSON String
+     * 
+     * @param hMap HashMap<String, Object>
+     * @return A JSON String
+     */
+    public static String convertToJSONString(HashMap<String, Object> hMap) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
+        JsonElement element = JsonParser.parseString(JSONValue.toJSONString(hMap));
+        return gson.toJson(element);
     }
 }
