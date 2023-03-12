@@ -173,11 +173,9 @@ public class Utility {
      */
     public static Modifier getAccessModifierCI(BJAccessModifierCI accModifer) {
         if (accModifer == BJAccessModifierCI.PUBLIC) {
-            return Modifier.DEFAULT;
-        } else if (accModifer == BJAccessModifierCI.ABSTRACT) {
-            return Modifier.ABSTRACT;
-        } else {
             return Modifier.PUBLIC;
+        } else  {
+            return Modifier.ABSTRACT;
         }
     }
 
@@ -189,8 +187,16 @@ public class Utility {
      */
     public static Modifier getAccessModifierE(BJAccessModifierE accModifer) {
         if (accModifer == BJAccessModifierE.PUBLIC) {
-            return Modifier.DEFAULT;
+            return Modifier.PUBLIC;
         } else {
+            return Modifier.DEFAULT;
+        }
+    }
+
+    public static Modifier getAccessModifierFieldI(BJAccessModifierFieldI _accMod) {
+        if(_accMod == BJAccessModifierFieldI.PUBLIC) {
+            return Modifier.PUBLIC;
+        }else {
             return Modifier.PUBLIC;
         }
     }

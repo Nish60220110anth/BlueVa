@@ -28,6 +28,7 @@ public class BJEnumWriter {
     private BJEnum _enum;
 
     private BJEnumWriter(BJEnum _penum) throws IOException {
+        _enum = _penum;
         _preCheck();
     }
 

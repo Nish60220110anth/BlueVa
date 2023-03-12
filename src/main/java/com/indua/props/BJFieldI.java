@@ -1,5 +1,7 @@
 package com.indua.props;
 
+import javax.lang.model.element.Modifier;
+
 import com.indua.utils.BJAccessModifierFieldI;
 import com.indua.utils.BJNAccessModifierFieldI;
 import com.indua.utils.BJPrimTypes;

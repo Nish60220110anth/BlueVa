@@ -6,7 +6,7 @@ import com.indua.utils.BJAccessModifier;
 import com.indua.utils.BJNAccessModifierMethod;
 import com.indua.utils.BJPrimTypes;
 
-public class BJMethodInterface extends BJMethod{
+public class BJMethodInterface extends BJMethod {
 
     /**
      * This function creates an instance of the BJMethodInterface class and returns
@@ -25,7 +25,7 @@ public class BJMethodInterface extends BJMethod{
     private BJNAccessModifierMethod _naccModifier;
 
     private BJMethodInterface() {
-
+        _parameterColl = new ArrayList<>();
     }
 
     /**
@@ -64,13 +64,13 @@ public class BJMethodInterface extends BJMethod{
     }
 
     /**
-     * This function sets the parameter collection of the method interface
+     * It adds a parameter to the parameter collection
      * 
-     * @param _parameterColl ArrayList of BJParameter objects
-     * @return The object itself.
+     * @param _parameter The parameter to add to the method.
+     * @return The method is returning the object itself.
      */
-    public BJMethodInterface setParameterColl(ArrayList<BJParameter> _parameterColl) {
-        this._parameterColl = _parameterColl;
+    public BJMethodInterface addParameter(BJParameter _parameter) {
+        this._parameterColl.add(_parameter);
         return this;
     }
 

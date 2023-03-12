@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.lang.model.element.Modifier;
+
 import com.indua.props.BJBuildInterfaceOutput;
 import com.indua.props.BJBuildStatus;
+import com.indua.props.BJFieldI;
 import com.indua.props.BJInterface;
 import com.indua.props.BJMethodInterface;
 import com.indua.props.BJParameter;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -54,6 +58,7 @@ public class BJInterfaceWriter {
      */
     public TypeSpec createInterfaceSpec() {
         com.squareup.javapoet.TypeSpec.Builder interfaceBuilder = TypeSpec.interfaceBuilder(this._interface.getName());
+
         interfaceBuilder = interfaceBuilder.addModifiers(Utility.getAccessModifierCI(this._interface.getAccModifier()));
 
         interfaceBuilder = interfaceBuilder
@@ -71,7 +76,21 @@ public class BJInterfaceWriter {
                             interfaceName));
         }
 
+        for (BJFieldI field : this._interface.getFieldColl()) {
+            interfaceBuilder = interfaceBuilder.addField(createFieldSpec(field));
+        }
+
         return interfaceBuilder.build();
+    }
+
+    private FieldSpec createFieldSpec(BJFieldI _field) {
+        com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
+                Utility.getTypeNameForPrimTypes(_field.getOutput()),
+                _field.getName(), Modifier.PUBLIC,Modifier.STATIC,Modifier.FINAL)
+                .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+
+        return fieldBuilder.build();
     }
 
     /**
@@ -84,8 +103,13 @@ public class BJInterfaceWriter {
     public MethodSpec createMethodSpec(BJMethodInterface _methodInterface) {
         com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodInterface.getName());
 
-        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodInterface.getAccModifier()),
-                Utility.getNonAccessModifierForMethod(_methodInterface.getNaccModifier()));
+        if (_methodInterface.getNaccModifier() == BJNAccessModifierMethod.DEFAULT) {
+            _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodInterface.getAccModifier()));
+        } else {
+            _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodInterface.getAccModifier()),
+                    Utility.getNonAccessModifierForMethod(_methodInterface.getNaccModifier()));
+
+        }
 
         _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodInterface.getOutput()));
 
@@ -157,9 +181,9 @@ public class BJInterfaceWriter {
 
 }
 
-
 /**
- * BJInterfaceWriter.createInstance(BJInterface).build(); // returns BJBuildInterfaceOutput
+ * BJInterfaceWriter.createInstance(BJInterface).build(); // returns
+ * BJBuildInterfaceOutput
  * 
  * Automatically writes to `${BJInterface.getName()}.java` file
  */
