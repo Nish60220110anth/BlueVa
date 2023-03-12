@@ -1,4 +1,4 @@
-package com.indua.props;
+package com.indua.utils;
 
 public enum BJNAccessModifierMethod {
     DEFAULT,

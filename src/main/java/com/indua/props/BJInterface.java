@@ -2,6 +2,8 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
+import com.indua.utils.BJAccessModifierCI;
+
 public class BJInterface {
     /**
      * This function creates a new instance of the BJInterface class, and returns

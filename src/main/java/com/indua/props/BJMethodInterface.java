@@ -2,6 +2,10 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
+import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJNAccessModifierMethod;
+import com.indua.utils.BJPrimTypes;
+
 public class BJMethodInterface extends BJMethod{
 
     /**

@@ -2,6 +2,8 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
+import com.indua.utils.BJAccessModifierE;
+
 public class BJEnum {
     /**
      * The function creates a new instance of the class BJEnum

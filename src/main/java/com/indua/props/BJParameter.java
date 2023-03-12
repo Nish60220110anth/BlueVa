@@ -1,5 +1,8 @@
 package com.indua.props;
 
+import com.indua.utils.BJNAccessModifierParameter;
+import com.indua.utils.BJPrimTypes;
+
 public class BJParameter {
     /**
      * This function creates a new instance of the BJParameter class

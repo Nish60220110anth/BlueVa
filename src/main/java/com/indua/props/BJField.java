@@ -1,5 +1,9 @@
 package com.indua.props;
 
+import com.indua.utils.BJAccessModifier;
+import com.indua.utils.BJNAccessModifierFieldC;
+import com.indua.utils.BJPrimTypes;
+
 public class BJField {
     /**
      * Creates new instance of BJField

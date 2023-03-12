@@ -4,8 +4,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 
@@ -16,6 +18,8 @@ import com.indua.BJPackage;
 public class BJLayoutWriter {
     private BJPackage _package;
     private final Document _document;
+
+    private Transformer _transformer;
 
     private BJLayoutWriter(Document _pdocument) {
         this._document = _pdocument;
@@ -57,6 +61,16 @@ public class BJLayoutWriter {
         return this;
     }
 
+    public BJLayoutWriter build() throws Exception {
+        if (this._package == null) {
+            throw new Exception("package not set");
+        }
+
+        _document.appendChild(BJElementBuilder.createInstance(_document).createPackageBuilder(_package).build());
+
+        return this;
+    }
+
     /**
      * It creates a new transformer object that will transform the document object
      * into a xml with
@@ -64,25 +78,30 @@ public class BJLayoutWriter {
      * 
      * @return A Transformer object.
      */
-    public Transformer defaulTransform() throws TransformerConfigurationException {
+    public BJLayoutWriter defaulTransform() throws TransformerConfigurationException {
 
         if (_document == null) {
             throw new IllegalStateException("Document object is not set");
         }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer(new DOMSource(_document));
+        Transformer transformer = transformerFactory.newTransformer();
 
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
         transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 
-        return transformer;
+        this._transformer = transformer;
+
+        return this;
     }
 
+    public void transform(Result outStream) throws TransformerException {
+        this._transformer.transform(new DOMSource(this._document), outStream);
+    }
 }
 
 /*
  * BJLayoutWriter.createInstance(BJLayoutWriter.createDefaultDocument()).
- * setPackage(BJPackage).defaultTransform().writeTo(InputStream);
+ * setPackage(BJPackage).build().defaultTransform().transform(outStream).
  */
