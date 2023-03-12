@@ -156,3 +156,10 @@ public class BJInterfaceWriter {
     }
 
 }
+
+
+/**
+ * BJInterfaceWriter.createInstance(BJInterface).build(); // returns BJBuildInterfaceOutput
+ * 
+ * Automatically writes to `${BJInterface.getName()}.java` file
+ */

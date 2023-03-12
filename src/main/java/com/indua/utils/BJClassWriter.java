@@ -221,3 +221,9 @@ public class BJClassWriter {
      * name="" output="" id="" accmod="" naccmod=""
      */
 }
+
+/**
+ * BJClassWriter.createInstance(BJClass).build(); // returns BJBuildClassOutput
+ * 
+ * Automatically writes to `${BJClass.getName()}.java` file
+ */

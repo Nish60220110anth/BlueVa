@@ -14,7 +14,7 @@ import com.squareup.javapoet.TypeSpec;
 
 public class BJEnumWriter {
     /**
-     * Create a new instance of the BJEnumWriter class, passing in the BJEnum object
+     * Create a new instance of the BJEnumWriter Enum, passing in the BJEnum object
      * that you want to
      * write to the file
      * 
@@ -100,3 +100,9 @@ public class BJEnumWriter {
         return IntefaceOutput;
     }
 }
+
+/**
+ * BJEnumWriter.createInstance(BJEnum).build(); // returns BJBuildEnumOutput
+ * 
+ * Automatically writes to `${BJEnum.getName()}.java` file
+ */
