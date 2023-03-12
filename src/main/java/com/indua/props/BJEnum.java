@@ -100,15 +100,6 @@ public class BJEnum {
     }
 
     /**
-     * This function returns the value of the private variable _enumvaluesColl.
-     * 
-     * @return The return type is an ArrayList of BJEnumValue objects.
-     */
-    public ArrayList<BJValue> setValueColl() {
-        return _enumvaluesColl;
-    }
-
-    /**
      * This function returns the collection of enum values for this enum.
      * 
      * @return An ArrayList of BJEnumValue objects.
@@ -123,7 +114,7 @@ public class BJEnum {
      * @param _enumvalue The enum value to add to the enum
      * @return The object itself.
      */
-    public BJEnum addEnumValues(BJValue _enumvalue) {
+    public BJEnum addValue(BJValue _enumvalue) {
         this._enumvaluesColl.add(_enumvalue);
         return this;
     }

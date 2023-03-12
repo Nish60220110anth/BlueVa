@@ -161,14 +161,13 @@ public class BJClass extends BJNode {
     }
 
     /**
-     * This function sets the value of the fieldColl field to the value of the
-     * _fieldColl parameter
+     * Adds a field to the class
      * 
-     * @param _fieldColl The collection of fields that are in the class.
+     * @param _field The field to add to the class.
      * @return The class itself.
      */
-    public BJClass setFieldColl(ArrayList<BJField> _fieldColl) {
-        this._fieldColl = _fieldColl;
+    public BJClass addField(BJField _field) {
+        this._fieldColl.add(_field);
         return this;
     }
 
