@@ -83,7 +83,6 @@ public class BJLayoutWriter {
 }
 
 /*
- * BJLayoutWriter mywriter =
  * BJLayoutWriter.createInstance(BJLayoutWriter.createDefaultDocument()).
  * setPackage(BJPackage).defaultTransform().writeTo(InputStream);
  */

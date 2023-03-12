@@ -230,3 +230,12 @@ public class BJPackage {
         return this;
     }
 }
+
+/*
+ * BJPackage _package =
+ * BJPackage.createInstance(PackageString).addClass(BJClass).addEnum(BJEnum).
+ * addInterface(BJInterface);
+ * 
+ * Used this stack of function calls to add class / enum / interface to the
+ * package object
+ */
