@@ -134,6 +134,8 @@ public class Utility {
             return Integer.class;
         } else if (_primTypes == BJPrimTypes.SHORT) {
             return Short.class;
+        } else if (_primTypes == BJPrimTypes.LONG) {
+            return Long.class;
         } else {
             return String.class;
         }
@@ -170,7 +172,7 @@ public class Utility {
      * @return A Modifier object.
      */
     public static Modifier getAccessModifierCI(BJAccessModifierCI accModifer) {
-        if (accModifer == BJAccessModifierCI.DEFAULT) {
+        if (accModifer == BJAccessModifierCI.PUBLIC) {
             return Modifier.DEFAULT;
         } else if (accModifer == BJAccessModifierCI.ABSTRACT) {
             return Modifier.ABSTRACT;
@@ -186,7 +188,7 @@ public class Utility {
      * @return Modifier.DEFAULT or Modifier.PUBLIC
      */
     public static Modifier getAccessModifierE(BJAccessModifierE accModifer) {
-        if (accModifer == BJAccessModifierE.DEFAULT) {
+        if (accModifer == BJAccessModifierE.PUBLIC) {
             return Modifier.DEFAULT;
         } else {
             return Modifier.PUBLIC;
@@ -203,5 +205,27 @@ public class Utility {
         Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
         JsonElement element = JsonParser.parseString(JSONValue.toJSONString(hMap));
         return gson.toJson(element);
+    }
+
+    public static String createInitializer(BJPrimTypes _primType, String value) {
+        if (_primType == BJPrimTypes.BOOLEAN) {
+            return String.format("Boolean.valueOf(\"%s\")", value);
+        } else if (_primType == BJPrimTypes.BYTE) {
+            return String.format("Byte.valueOf(\"%s\")", value);
+        } else if (_primType == BJPrimTypes.CHAR) {
+            return String.format("Character.valueOf(\'%s\')", value.charAt(0));
+        } else if (_primType == BJPrimTypes.DOUBLE) {
+            return String.format("Double.valueOf(\"%s\")", value);
+        } else if (_primType == BJPrimTypes.FLOAT) {
+            return String.format("Float.valueOf(\"%s\")", value);
+        } else if (_primType == BJPrimTypes.INT) {
+            return String.format("Integer.valueOf(\"%s\")", value);
+        } else if (_primType == BJPrimTypes.LONG) {
+            return String.format("Long.valueOf(\"%s\")", value);
+        } else if (_primType == BJPrimTypes.SHORT) {
+            return String.format("Short.valueOf(\"%s\")", value);
+        } else {
+            return String.format("String.valueOf(\"%s\")", value);
+        }
     }
 }

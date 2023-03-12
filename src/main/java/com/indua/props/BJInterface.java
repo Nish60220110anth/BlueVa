@@ -27,7 +27,7 @@ public class BJInterface {
     private BJInterface(String _ppackageName) {
         _implementingInterfaces = new ArrayList<>();
         _methodColl = new ArrayList<>();
-        _accModifier = BJAccessModifierCI.DEFAULT;
+        _accModifier = BJAccessModifierCI.PUBLIC;
         _fieldColl = new ArrayList<>();
 
         this._packageName = _ppackageName;

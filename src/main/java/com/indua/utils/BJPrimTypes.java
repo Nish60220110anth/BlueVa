@@ -9,5 +9,6 @@ public enum BJPrimTypes {
     STRING,
     BOOLEAN,
     BYTE,
-    SHORT
+    SHORT,
+    LONG
 }

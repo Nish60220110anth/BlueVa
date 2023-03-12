@@ -6,7 +6,8 @@ import com.indua.utils.BJAccessModifier;
 import com.indua.utils.BJNAccessModifierMethod;
 import com.indua.utils.BJPrimTypes;
 
-/** Method in class
+/**
+ * Method in class
  * 
  */
 public class BJMethodClass extends BJMethod {
@@ -17,7 +18,7 @@ public class BJMethodClass extends BJMethod {
      * 
      * @return The method is returning a new instance of the class.
      */
-    public static BJMethodClass CreateInstance() {
+    public static BJMethodClass createInstance() {
         return new BJMethodClass();
     }
 
@@ -30,6 +31,8 @@ public class BJMethodClass extends BJMethod {
 
     private BJMethodClass() {
         _parameterColl = new ArrayList<>();
+
+        _naccModifierMethod = BJNAccessModifierMethod.NONE;
     }
 
     /**
@@ -41,13 +44,13 @@ public class BJMethodClass extends BJMethod {
         return _name;
     }
 
- 
-   /**
-    * This function sets the name of the object to the name passed in as a parameter
-    * 
-    * @param _name The name of the method.
-    * @return The object itself.
-    */
+    /**
+     * This function sets the name of the object to the name passed in as a
+     * parameter
+     * 
+     * @param _name The name of the method.
+     * @return The object itself.
+     */
     public BJMethodClass setName(String _name) {
         this._name = _name;
         return this;
@@ -97,7 +100,7 @@ public class BJMethodClass extends BJMethod {
      * This function returns the access modifiers of the class
      * 
      * @return The access modifiers of the class.
-     * @apiNote See {@link BJAccessModifier} for supported Access 
+     * @apiNote See {@link BJAccessModifier} for supported Access
      */
 
     public BJAccessModifier getAccModifier() {
@@ -153,14 +156,13 @@ public class BJMethodClass extends BJMethod {
     }
 
     /**
-     * This function sets the parameter collection to the parameter collection
-     * passed in.
+     * This function adds a parameter to the parameter collection
      * 
-     * @param _parameterColl ArrayList of BJParameter objects
-     * @return The object itself.
+     * @param _parameter The parameter to add to the method.
+     * @return The class itself.
      */
-    public BJMethodClass setParameterColl(ArrayList<BJParameter> _parameterColl) {
-        this._parameterColl = _parameterColl;
+    public BJMethodClass addParameter(BJParameter _parameter) {
+        this._parameterColl.add(_parameter);
         return this;
     }
 

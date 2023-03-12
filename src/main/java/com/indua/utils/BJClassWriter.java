@@ -14,6 +14,7 @@ import com.indua.props.BJField;
 import com.indua.props.BJId;
 import com.indua.props.BJMethodClass;
 import com.indua.props.BJParameter;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -48,7 +49,9 @@ public class BJClassWriter {
      */
     public BJBuildClassOutput build() throws IOException {
         TypeSpec myclass = createClassSpec();
-        JavaFile javaFile = JavaFile.builder(_class.getPackageName(), myclass).build();
+        JavaFile javaFile = JavaFile.builder(_class.getPackageName(), myclass)
+                .addStaticImport(ClassName.get("java", "lang"), "*")
+                .addStaticImport(ClassName.get("java", "io"), "*").build();
 
         javaFile.writeTo(getFolderFile());
 
@@ -94,8 +97,13 @@ public class BJClassWriter {
      */
     private TypeSpec createClassSpec() {
         com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.getName());
-        classBuilder = classBuilder.addModifiers(Utility.getAccessModifierCI(this._class.getAccModifier()),
-                Utility.getNonAccessModifierForClass(this._class.getNaccModifier()));
+
+        if (this._class.getNaccModifier() == BJNAccessModifierClass.DEFAULT) {
+            classBuilder = classBuilder.addModifiers(Modifier.PUBLIC);
+        } else {
+            classBuilder = classBuilder.addModifiers(Utility.getAccessModifierCI(this._class.getAccModifier()),
+                    Utility.getNonAccessModifierForClass(this._class.getNaccModifier()));
+        }
 
         classBuilder = classBuilder
                 .addJavadoc(String.format("Hello , this is Sample Java doc for class %s\n", this._class.getName())
@@ -132,9 +140,9 @@ public class BJClassWriter {
         com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder();
 
         methodBuilder = methodBuilder.addModifiers(Modifier.PUBLIC)
-                .addStatement("String name = \"Shiva\";")
+                .addStatement("String name = \"Shiva\"")
                 .beginControlFlow("if ( name == \"Shiva\")")
-                .addStatement("System.out.println(\"Hello Shiva\");")
+                .addStatement("System.out.println(\"Hello Shiva\")")
                 .endControlFlow();
 
         methodBuilder = methodBuilder.addJavadoc(String.format("Sample Constructor Java doc for Class %s", this._class
@@ -154,8 +162,12 @@ public class BJClassWriter {
 
         com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodClass.getName());
 
-        _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifier()),
-                Utility.getNonAccessModifierForMethod(_methodClass.getNaccModifier()));
+        if (_methodClass.getNaccModifier() == BJNAccessModifierMethod.NONE) {
+            _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifier()));
+        } else {
+            _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifier()),
+                    Utility.getNonAccessModifierForMethod(_methodClass.getNaccModifier()));
+        }
 
         _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodClass.getOutput()));
 
@@ -169,11 +181,12 @@ public class BJClassWriter {
         _methodBuilder = _methodBuilder.beginControlFlow("for (int i=0 ; i < 100 ; i++)")
                 .addStatement(getCodeFromId(_methodClass.getBjId()))
                 .beginControlFlow("if(i == 69)")
-                .addStatement("System.out.println(\"I got 69\");")
+                .addStatement("System.out.println(\"I got 69\")")
                 .nextControlFlow("else if( i == 9)")
-                .addStatement("System.out.println(\"I got 9\");")
+                .addStatement("System.out.println(\"I got 9\")")
                 .nextControlFlow("else")
-                .addStatement("System.out.println(\"Oops Nothing\");")
+                .addStatement("System.out.println(\"Oops Nothing\")")
+                .endControlFlow()
                 .endControlFlow();
 
         return _methodBuilder.build();
@@ -208,7 +221,8 @@ public class BJClassWriter {
         com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
                 Utility.getTypeNameForPrimTypes(_field.getOutput()),
                 _field.getName(), Utility.getNonAccessModifierForField(_field.getNaccModifier()))
-                .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()));
+                .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
 
         return fieldBuilder.build();
     }

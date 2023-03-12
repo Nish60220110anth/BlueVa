@@ -47,7 +47,7 @@ public class BJEnum {
         this._packageName = _ppackageName;
 
         _name = "DefaultEnum";
-        _accModifier = BJAccessModifierE.DEFAULT;
+        _accModifier = BJAccessModifierE.PUBLIC;
     }
 
     /**

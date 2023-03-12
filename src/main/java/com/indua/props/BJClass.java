@@ -31,7 +31,7 @@ public class BJClass extends BJNode {
         _fieldColl = new ArrayList<>();
         _packageName = _ppackageName;
 
-        _accModifier = BJAccessModifierCI.DEFAULT;
+        _accModifier = BJAccessModifierCI.PUBLIC;
         _naccModifier = BJNAccessModifierClass.DEFAULT;
     }
 

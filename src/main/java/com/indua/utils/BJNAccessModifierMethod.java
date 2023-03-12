@@ -6,5 +6,6 @@ public enum BJNAccessModifierMethod {
     STATIC,
     FINAL,
     ABSTRACT,
-    TRANSIENT
+    TRANSIENT,
+    NONE
 }
