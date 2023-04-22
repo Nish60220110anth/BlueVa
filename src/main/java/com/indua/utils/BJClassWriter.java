@@ -12,6 +12,7 @@ import com.indua.props.BJBuildStatus;
 import com.indua.props.BJClass;
 import com.indua.props.BJField;
 import com.indua.props.BJId;
+import com.indua.props.BJImport;
 import com.indua.props.BJMethodClass;
 import com.indua.props.BJParameter;
 import com.squareup.javapoet.ClassName;
@@ -20,6 +21,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.JavaFile.Builder;
 
 public class BJClassWriter {
     /**
@@ -49,10 +51,20 @@ public class BJClassWriter {
      */
     public BJBuildClassOutput build() throws IOException {
         TypeSpec myclass = createClassSpec();
-        JavaFile javaFile = JavaFile.builder(_class.getPackageName(), myclass)
-                .addStaticImport(ClassName.get("java", "lang"), "*")
-                .addStaticImport(ClassName.get("java", "io"), "*").build();
 
+        Builder javaBuilder = JavaFile.builder(_class.getPackageName(), myclass)
+                .addFileComment(_class.getFileComment());
+
+        if (_class.getStaticImports() != null) {
+
+            for (BJImport _import : _class.getStaticImports().getImportColl()) {
+                javaBuilder = javaBuilder.addStaticImport(
+                        ClassName.get(_import.getPackageName(), _import.getSimpleName()),
+                        _import.getLeafName());
+            }
+        }
+
+        JavaFile javaFile = javaBuilder.build();
         javaFile.writeTo(getFolderFile());
 
         return generateClassOutput();
@@ -175,19 +187,21 @@ public class BJClassWriter {
             _methodBuilder = _methodBuilder.addParameter(createParameterSpec(parameter));
         }
 
-        _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s",
-                _methodClass.getName(), _methodClass.getBjId().getId()));
+        _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s %s ",
+                _methodClass.getName(), _methodClass.getBjId().getId(),_methodClass.getComment()));
 
-        _methodBuilder = _methodBuilder.beginControlFlow("for (int i=0 ; i < 100 ; i++)")
-                .addStatement(getCodeFromId(_methodClass.getBjId()))
-                .beginControlFlow("if(i == 69)")
-                .addStatement("System.out.println(\"I got 69\")")
-                .nextControlFlow("else if( i == 9)")
-                .addStatement("System.out.println(\"I got 9\")")
-                .nextControlFlow("else")
-                .addStatement("System.out.println(\"Oops Nothing\")")
-                .endControlFlow()
-                .endControlFlow();
+
+        // _methodBuilder = _methodBuilder.beginControlFlow("for (int i=0 ; i < 100 ; i++)")
+        //         .addStatement(getCodeFromId(_methodClass.getBjId()))
+        //         .beginControlFlow("if(i == 69)")
+        //         .addStatement("System.out.println(\"I got 69\")")
+        //         .nextControlFlow("else if( i == 9)")
+        //         .addStatement("System.out.println(\"I got 9\")")
+        //         .nextControlFlow("else")
+        //         .addStatement("System.out.println(\"Oops Nothing\")")
+        //         .endControlFlow()
+        //         .endControlFlow();
+        _methodBuilder = _methodBuilder.addCode(_methodClass.getCode());
 
         return _methodBuilder.build();
     }

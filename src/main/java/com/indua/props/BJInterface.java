@@ -22,6 +22,20 @@ public class BJInterface {
     private final String _packageName;
     private ArrayList<BJMethodInterface> _methodColl;
     private ArrayList<BJFieldI> _fieldColl;
+    private BJImports _staticImports;
+    private String _fileComment;
+
+    public boolean removeInterface(String _interface) {
+        return _implementingInterfaces.remove(_interface);
+    }
+
+    public boolean removeMethod(BJMethodInterface _method) {
+        return _methodColl.remove(_method);
+    }
+
+    public boolean removeField(BJFieldI _field) {
+        return _fieldColl.remove(_field);
+    }
 
     // A constructor.
     private BJInterface(String _ppackageName) {
@@ -31,6 +45,35 @@ public class BJInterface {
         _fieldColl = new ArrayList<>();
 
         this._packageName = _ppackageName;
+    }
+
+    public BJInterface setFileComment(String _fileComment) {
+        this._fileComment = _fileComment;
+        return this;
+    }
+
+    public String getFileComment() {
+        return _fileComment;
+    }
+
+    /**
+     * This function returns the static imports
+     * 
+     * @return The static imports.
+     */
+    public BJImports getStaticImports() {
+        return _staticImports;
+    }
+
+    /**
+     * This function sets the static imports
+     * 
+     * @param _staticImports The static imports.
+     * @return The object itself.
+     */
+    public BJInterface setStaticImports(BJImports _staticImports) {
+        this._staticImports = _staticImports;
+        return this;
     }
 
     /**

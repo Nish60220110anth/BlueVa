@@ -5,4 +5,7 @@
     "docwriter.style": "Javadoc",
     "docwriter.progress.trackMethods": false,
     "docwriter.progress.trackFunctions": false,
+    "files.watcherExclude": {
+        "**/target": true
+    },
 }

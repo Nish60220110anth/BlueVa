@@ -24,15 +24,53 @@ public class BJClass extends BJNode {
     private ArrayList<BJMethodClass> _methodColl;
     private ArrayList<BJField> _fieldColl;
     private final String _packageName;
+    private String _fileComment;
+    private BJImports _staticImports;
+
+    public boolean removeInterface(String _interface) {
+        return _implementingInterfaces.remove(_interface);
+    }
+
+    public boolean removeMethod(BJMethodClass _method) {
+        return _methodColl.remove(_method);
+    }
+
+    public boolean removeField(BJField _field) {
+        return _fieldColl.remove(_field);
+    }
+
+    public BJClass setStaticImports(BJImports _staticImports) {
+        this._staticImports = _staticImports;
+        return this;
+    }
+
+    /**
+     * This function returns the static imports
+     * 
+     * @return The static imports.
+     */
+    public BJImports getStaticImports() {
+        return _staticImports;
+    }
 
     private BJClass(String _ppackageName) {
         _implementingInterfaces = new ArrayList<>();
         _methodColl = new ArrayList<>();
         _fieldColl = new ArrayList<>();
         _packageName = _ppackageName;
+        _fileComment = "";
 
         _accModifier = BJAccessModifierCI.PUBLIC;
         _naccModifier = BJNAccessModifierClass.DEFAULT;
+    }
+
+    public BJClass setFileComment(String _fileComment) {
+        this._fileComment = _fileComment;
+        return this;
+    }
+
+    public String getFileComment() {
+        return _fileComment;
     }
 
     /**

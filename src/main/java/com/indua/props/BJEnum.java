@@ -41,6 +41,48 @@ public class BJEnum {
     private BJAccessModifierE _accModifier;
     private ArrayList<BJValue> _enumvaluesColl;
     private final String _packageName;
+    private String _fileComment;
+    private BJImports _staticImports;
+
+    /**
+     * This function returns the static imports
+     * 
+     * @return The static imports.
+     */
+    public BJImports getStaticImports() {
+        return _staticImports;
+    }
+
+    /**
+     * This function sets the static imports
+     * 
+     * @param _staticImports The static imports.
+     * @return The object itself.
+     */
+    public BJEnum setStaticImports(BJImports _staticImports) {
+        this._staticImports = _staticImports;
+        return this;
+    }
+
+    /**
+     * This function sets the file comment for the enum.
+     * 
+     * @param _fileComment The file comment for the enum.
+     * @return The enum itself.
+     */
+    public BJEnum setFileComment(String _fileComment) {
+        this._fileComment = _fileComment;
+        return this;
+    }
+
+    /**
+     * This function returns the file comment for the enum.
+     * 
+     * @return The file comment for the enum.
+     */
+    public String getFileComment() {
+        return _fileComment;
+    }
 
     private BJEnum(String _ppackageName) {
         _enumvaluesColl = new ArrayList<>();

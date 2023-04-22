@@ -1,10 +1,14 @@
 package com.indua;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.indua.props.BJClass;
 import com.indua.props.BJEnum;
 import com.indua.props.BJInterface;
+import com.indua.utils.BJClassWriter;
+import com.indua.utils.BJEnumWriter;
+import com.indua.utils.BJInterfaceWriter;
 
 public class BJPackage {
     /**
@@ -26,11 +30,10 @@ public class BJPackage {
     private final String _packageName;
     private ArrayList<BJClass> _classColl;
     private ArrayList<BJEnum> _enumColl;
-
     private ArrayList<BJInterface> _interfaceColl;
+
     private ArrayList<String> _classNames;
     private ArrayList<String> _enumNames;
-
     private ArrayList<String> _interfaceNames;
 
     private BJPackage(String _ppackageName) {
@@ -228,6 +231,35 @@ public class BJPackage {
     public BJPackage addInterface(BJInterface _interface) {
         this._interfaceColl.add(_interface);
         return this;
+    }
+
+    public boolean removeClass(BJClass _class) {
+        return this._classColl.remove(_class);
+    }
+
+    public boolean removeEnum(BJEnum _enum) {
+        return this._enumColl.remove(_enum);
+    }
+
+    public boolean removeInterface(BJInterface _interface) {
+        return this._interfaceColl.remove(_interface);
+    }
+
+    public void build() throws IOException {
+        for(BJClass _class : _classColl) {
+            BJClassWriter.createInstance(_class.setFileComment("My Test File comment")
+            .setStaticImports(null)).build();
+        }
+
+        for(BJEnum _enum : _enumColl) {
+            BJEnumWriter.createInstance(_enum.setFileComment("My Test File comment")
+            .setStaticImports(null)).build();
+        }
+
+        for(BJInterface _interface : _interfaceColl) {
+            BJInterfaceWriter.createInstance(_interface.setFileComment("My Test File comment")
+            .setStaticImports(null)).build();
+        }
     }
 }
 

@@ -1,4 +1,8 @@
+// Some Sample file comment to demonstarate infact to test the comment
 package com.example.test;
+
+import static java.lang.Object;
+import static java.lang.String;
 
 import java.lang.Boolean;
 import java.lang.Integer;

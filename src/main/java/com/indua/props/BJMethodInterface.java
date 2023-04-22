@@ -23,6 +23,27 @@ public class BJMethodInterface extends BJMethod {
     private BJPrimTypes _output;
     private BJAccessModifier _accModifier;
     private BJNAccessModifierMethod _naccModifier;
+    private String _comment;
+
+    /**
+     * This function returns the comment of the method
+     * 
+     * @return The comment of the method.
+     */
+    public String getComment() {
+        return _comment;
+    }
+
+    /**
+     * This function sets the comment of the method
+     * 
+     * @param _comment The comment of the method.
+     * @return The object itself.
+     */
+    public BJMethodInterface setComment(String _comment) {
+        this._comment = _comment;
+        return this;
+    }
 
     private BJMethodInterface() {
         _parameterColl = new ArrayList<>();

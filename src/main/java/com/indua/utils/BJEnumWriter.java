@@ -8,9 +8,12 @@ import java.nio.file.Paths;
 import com.indua.props.BJBuildEnumOutput;
 import com.indua.props.BJBuildStatus;
 import com.indua.props.BJEnum;
+import com.indua.props.BJImport;
 import com.indua.props.BJValue;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.JavaFile.Builder;
 
 public class BJEnumWriter {
     /**
@@ -42,10 +45,20 @@ public class BJEnumWriter {
      */
     public BJBuildEnumOutput build() throws IOException {
         TypeSpec myenum = createEnumSpec();
-        JavaFile javaFile = JavaFile.builder(_enum.getPackageName(), myenum).build();
+        Builder javaBuilder = JavaFile.builder(_enum.getPackageName(), myenum)
+                .addFileComment(_enum.getFileComment());
 
+        if (_enum.getStaticImports() != null) {
+
+            for (BJImport _import : _enum.getStaticImports().getImportColl()) {
+                javaBuilder = javaBuilder.addStaticImport(
+                        ClassName.get(_import.getPackageName(), _import.getSimpleName()),
+                        _import.getLeafName());
+            }
+        }
+
+        JavaFile javaFile = javaBuilder.build();
         javaFile.writeTo(getFolderFile());
-
         return generateEnumOutput();
     }
 

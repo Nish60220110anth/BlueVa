@@ -10,14 +10,17 @@ import javax.lang.model.element.Modifier;
 import com.indua.props.BJBuildInterfaceOutput;
 import com.indua.props.BJBuildStatus;
 import com.indua.props.BJFieldI;
+import com.indua.props.BJImport;
 import com.indua.props.BJInterface;
 import com.indua.props.BJMethodInterface;
 import com.indua.props.BJParameter;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.JavaFile.Builder;
 
 public class BJInterfaceWriter {
     /**
@@ -44,10 +47,20 @@ public class BJInterfaceWriter {
      */
     public BJBuildInterfaceOutput build() throws IOException {
         TypeSpec myinterface = createInterfaceSpec();
-        JavaFile javaFile = JavaFile.builder(_interface.getPackageName(), myinterface).build();
+        Builder javaBuilder = JavaFile.builder(_interface.getPackageName(), myinterface)
+        .addFileComment(_interface.getFileComment());
 
+        if (_interface.getStaticImports() != null) {
+
+            for (BJImport _import : _interface.getStaticImports().getImportColl()) {
+                javaBuilder = javaBuilder.addStaticImport(
+                        ClassName.get(_import.getPackageName(), _import.getSimpleName()),
+                        _import.getLeafName());
+            }
+        }
+
+        JavaFile javaFile = javaBuilder.build();
         javaFile.writeTo(getFolderFile());
-
         return generateInterfaceOutput();
     }
 
@@ -117,8 +130,8 @@ public class BJInterfaceWriter {
             _methodBuilder = _methodBuilder.addParameter(createParameterSpec(parameter));
         }
 
-        _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s",
-                _methodInterface.getName()));
+        _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s",
+                _methodInterface.getName(),_methodInterface.getComment()));
 
         return _methodBuilder.build();
     }

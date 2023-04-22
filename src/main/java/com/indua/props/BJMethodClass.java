@@ -28,9 +28,53 @@ public class BJMethodClass extends BJMethod {
     private BJAccessModifier _accModifier;
     private BJNAccessModifierMethod _naccModifierMethod;
     private ArrayList<BJParameter> _parameterColl;
+    private String _code;
+    private String _comment;
+
+    /**
+     * This function returns the comment of the method
+     * 
+     * @return The comment of the method.
+     */
+    public String getComment() {
+        return _comment;
+    }
+
+    /**
+     * This function sets the comment of the method
+     * 
+     * @param _comment The comment of the method.
+     * @return The object itself.
+     */
+    public BJMethodClass setComment(String _comment) {
+        this._comment = _comment;
+        return this;
+    }
+
+    /**
+     * This function returns the code of the method
+     * 
+     * @return The code of the method.
+     */
+    public String getCode() {
+        return _code;
+    }
+
+    /**
+     * This function sets the code of the method
+     * 
+     * @param _code The code of the method.
+     * @return The object itself.
+     */
+    public BJMethodClass setCode(String _code) {
+        this._code = _code;
+        return this;
+    }
 
     private BJMethodClass() {
         _parameterColl = new ArrayList<>();
+        _comment = "";
+        _code = "";
 
         _naccModifierMethod = BJNAccessModifierMethod.NONE;
     }
