@@ -6,14 +6,11 @@ import java.util.UUID;
 
 import javax.lang.model.element.Modifier;
 
-import com.indua.misc.MainChart;
 import com.indua.props.BJClass;
 import com.indua.props.BJEnum;
 import com.indua.props.BJField;
 import com.indua.props.BJFieldI;
 import com.indua.props.BJId;
-import com.indua.props.BJImport;
-import com.indua.props.BJImports;
 import com.indua.props.BJInterface;
 import com.indua.props.BJMethodClass;
 import com.indua.props.BJMethodInterface;
@@ -22,9 +19,6 @@ import com.indua.props.BJValue;
 import com.indua.utils.BJAccessModifier;
 import com.indua.utils.BJAccessModifierCI;
 import com.indua.utils.BJAccessModifierE;
-import com.indua.utils.BJClassWriter;
-import com.indua.utils.BJEnumWriter;
-import com.indua.utils.BJInterfaceWriter;
 import com.indua.utils.BJNAccessModifierMethod;
 import com.indua.utils.BJPrimTypes;
 
