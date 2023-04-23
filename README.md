@@ -26,10 +26,11 @@ Our tool is targeted towards a general developers community and helps them write
 
 ## Functionalities 
 
-1. create class,enums and interfacess in files on the provided directory following the package path convention
+1. create class,enums and interfaces in files on the provided directory following the package path convention
 2. add documentation to methods/fields/class/enums/file comments/interfaces/enums/parameters
 3. automatic constructor creation ( default and parameterized constructor )
 4. automatic default value initialization of fields 
-5. supports all access modifiers and non-access modifiers
-6. allow extending other classes 
-7. allow implementing other interfaces
+5. method with both primtive type + array types based on primitive types
+6. supports all access modifiers and non-access modifiers
+7. allow extending other classes 
+8. allow implementing other interfaces
