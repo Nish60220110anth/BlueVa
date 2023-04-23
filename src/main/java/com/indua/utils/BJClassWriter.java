@@ -132,26 +132,20 @@ public class BJClassWriter {
         if (_class.getIsShouldAddDefConstructor()) {
             com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder();
             for (BJField field : _class.getFieldColl()) {
-
                 if (field.getIsArray()) {
-                    methodBuilder = methodBuilder.addParameter(
-                            ArrayTypeName.of(Utility.getTypeNameForPrimTypes(field.getOutput())),
-                            field.getName());
+                    methodBuilder = methodBuilder.addStatement(
+                            String.format("this.%s = new %s[]{}", field.getName(), field.getOutput().getClassName()));
                 } else {
-                    methodBuilder = methodBuilder.addParameter(Utility.getTypeNameForPrimTypes(field.getOutput()),
-                            field.getName());
+                    methodBuilder = methodBuilder.addStatement(
+                            String.format("this.%s = %s", field.getName(), Utility.getDefaultValue(field.getOutput())));
                 }
-
-                methodBuilder.addStatement(
-                        String.format("this.%s = %s", field.getName(), Utility.getDefaultValue(field.getOutput())));
             }
 
             classBuilder = classBuilder.addMethod(methodBuilder.build());
         }
 
         if (_class.getIsShouldAddParamConstructor()) {
-            com.squareup.javapoet.MethodSpec.Builder methodBuilder =
-            MethodSpec.constructorBuilder();
+            com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder();
 
             for (BJField field : _class.getFieldColl()) {
                 if (field.getIsArray()) {
@@ -186,26 +180,6 @@ public class BJClassWriter {
     }
 
     /**
-     * It creates a constructor for the class
-     * 
-     * @return A MethodSpec object.
-     */
-    private MethodSpec createConstructor() {
-        com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder();
-
-        methodBuilder = methodBuilder.addModifiers(Modifier.PUBLIC)
-                .addStatement("String name = \"Shiva\"")
-                .beginControlFlow("if ( name == \"Shiva\")")
-                .addStatement("System.out.println(\"Hello Shiva\")")
-                .endControlFlow();
-
-        methodBuilder = methodBuilder.addJavadoc(String.format("Sample Constructor Java doc for Class %s", this._class
-                .getName()));
-
-        return methodBuilder.build();
-    }
-
-    /**
      * It creates a method spec for a given method class
      * 
      * @param _methodClass This is the class that holds all the information about
@@ -229,10 +203,14 @@ public class BJClassWriter {
             _methodBuilder = _methodBuilder.addParameter(createParameterSpec(parameter));
         }
 
-        _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s %s ",
-                _methodClass.getName(), _methodClass.getBjId().getId(), _methodClass.getComment()));
-        _methodBuilder = _methodBuilder.addCode(_methodClass.getCode());
+        if(_methodClass.getComment() != null) {
+            _methodBuilder = _methodBuilder.addJavadoc(_methodClass.getComment());
+        }
 
+        if(_methodClass.getCode() != null) {
+            _methodBuilder = _methodBuilder.addCode(_methodClass.getCode());
+        }
+        
         return _methodBuilder.build();
     }
 
@@ -281,22 +259,32 @@ public class BJClassWriter {
                         ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_field.getOutput())),
                         _field.getName())
                         .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
-                        .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+                        .initializer(String.format("new %s[] {}", _field.getOutput().getClassName()));
             } else {
                 fieldBuilder = FieldSpec.builder(
                         ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_field.getOutput())),
                         _field.getName(), _field.getNaccModifier())
                         .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
-                        .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+                        .initializer(String.format("new %s[] {}", _field.getOutput().getClassName()));
             }
         } else {
+            if (_field.getNaccModifier() == Modifier.DEFAULT) {
+                fieldBuilder = FieldSpec.builder(
+                        Utility.getTypeNameForPrimTypes(_field.getOutput()),
+                        _field.getName())
+                        .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                        .initializer(String.format("%s.valueOf(%s)", _field.getOutput().getClassName(),
+                                Utility.getDefaultValue(_field.getOutput())));
+            } else {
 
-            fieldBuilder = FieldSpec.builder(
-                    Utility.getTypeNameForPrimTypes(_field.getOutput()),
-                    _field.getName(), _field.getNaccModifier())
-                    .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
-                    .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+                fieldBuilder = FieldSpec.builder(
+                        Utility.getTypeNameForPrimTypes(_field.getOutput()),
+                        _field.getName(), _field.getNaccModifier())
+                        .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                        .initializer(String.format("%s.valueOf(%s)", _field.getOutput().getClassName(),
+                                Utility.getDefaultValue(_field.getOutput())));
 
+            }
         }
 
         return fieldBuilder.build();

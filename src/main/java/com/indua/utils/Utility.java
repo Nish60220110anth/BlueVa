@@ -111,7 +111,7 @@ public class Utility {
         } else if (primType == BJPrimTypes.BYTE) {
             return "0";
         } else if (primType == BJPrimTypes.CHAR) {
-            return "''";
+            return "' '";
         } else if (primType == BJPrimTypes.DOUBLE) {
             return "0.0";
         } else if (primType == BJPrimTypes.FLOAT) {

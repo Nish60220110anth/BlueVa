@@ -4,6 +4,7 @@ import static java.lang.Object;
 import static java.lang.String;
 
 import java.lang.Character;
+import java.lang.Float;
 import java.lang.Integer;
 import java.lang.String;
 import java.lang.Void;
@@ -15,20 +16,33 @@ import java.lang.Void;
  */
 public final class MyTestClass {
   /**
-   * Sample Jav doc for Field myName
+   * Sample Jav doc for Field myCharArray
    */
-  Character[] myName = Character.valueOf('N');
+  Character[] myCharArray = new Character[] {};
 
-  MyTestClass(Character[] myName) {
-    this.myName = '';
+  /**
+   * Sample Jav doc for Field myFloatArray
+   */
+  Float[] myFloatArray = new Float[] {};
+
+  /**
+   * Sample Jav doc for Field myNumber
+   */
+  Integer myNumber = Integer.valueOf(0);
+
+  MyTestClass() {
+    this.myCharArray = new Character[]{};
+    this.myFloatArray = new Float[]{};
+    this.myNumber = 0;
   }
 
-  MyTestClass(Character[] myName) {
-    this.myName = myName;
+  MyTestClass(Character[] myCharArray, Float[] myFloatArray, Integer myNumber) {
+    this.myCharArray = myCharArray;
+    this.myFloatArray = myFloatArray;
+    this.myNumber = myNumber;
   }
 
   /**
-   * Sample Java doc for Method main 4752d539-c1a5-40cb-a50d-e187bc6696d0  
    * @param args Sample Java doc for Parameter args
    */
   public static Void main(final String[] args) {
@@ -36,7 +50,7 @@ public final class MyTestClass {
   }
 
   /**
-   * Sample Java doc for Method MyTestMethod 15abd8ff-63d5-48c8-981d-261f639c790d This is a test method 
+   * This is a test method
    * @param testParam Sample Java doc for Parameter testParam
    */
   public Integer MyTestMethod(final String[] testParam) {
@@ -44,7 +58,7 @@ public final class MyTestClass {
   }
 
   /**
-   * Sample Java doc for Method MyAnoTestMethod b42aeb51-122e-4885-a6f8-6984c18fdd22 My AnoTest Comment 
+   * My AnoTest Comment
    * @param testParam Sample Java doc for Parameter testParam
    */
   private Void MyAnoTestMethod(final String[] testParam) {

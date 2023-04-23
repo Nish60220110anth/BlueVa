@@ -63,17 +63,31 @@ public final class App {
                 .setBjId(BJId.createInstance(UUID.randomUUID()))
                 .addParameter(_parameter1);
 
-        BJField _field = BJField.createInstance().setAccModifier(BJAccessModifier.PRIVATE)
+        BJField _field1 = BJField.createInstance().setAccModifier(BJAccessModifier.PRIVATE)
                 .setOutput(BJPrimTypes.CHAR)
                 .setIsArray(true)
-                .setName("myName")
+                .setName("myCharArray")
                 .setValue("Nishanth")
+                .setNaccModifier(Modifier.DEFAULT);
+
+        BJField _field2 = BJField.createInstance().setAccModifier(BJAccessModifier.PRIVATE)
+                .setOutput(BJPrimTypes.FLOAT)
+                .setIsArray(true)
+                .setName("myFloatArray")
+                .setValue("Nishanth")
+                .setNaccModifier(Modifier.DEFAULT);
+
+        BJField _field3 = BJField.createInstance().setAccModifier(BJAccessModifier.PRIVATE)
+                .setOutput(BJPrimTypes.INT)
+                .setIsArray(false)
+                .setName("myNumber")
+                .setValue("0")
                 .setNaccModifier(Modifier.DEFAULT);
 
         MainChart.createInstance().FillBjClass(myclass);
 
         myclass.addMethod(_method).addMethod(_method2);
-        myclass.addField(_field);
+        myclass.addField(_field1).addField(_field2).addField(_field3);
 
         BJImport import1 = BJImport.createInstance().setPackageName("java")
                 .setSimpleName("lang").setLeafName("String");
