@@ -1,5 +1,6 @@
 package com.indua;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class BJPackage {
     private ArrayList<BJClass> _classColl;
     private ArrayList<BJEnum> _enumColl;
     private ArrayList<BJInterface> _interfaceColl;
+    private String _packageDir;
 
     private ArrayList<String> _classNames;
     private ArrayList<String> _enumNames;
@@ -42,10 +44,16 @@ public class BJPackage {
         _enumColl = new ArrayList<>();
 
         _packageName = _ppackageName;
+        _packageDir = "";
 
         _classNames = new ArrayList<>();
         _enumNames = new ArrayList<>();
         _interfaceNames = new ArrayList<>();
+    }
+
+    public BJPackage setPackageDir(String _packageDir) {
+        this._packageDir = _packageDir;
+        return this;
     }
 
     /**
@@ -246,19 +254,30 @@ public class BJPackage {
     }
 
     public void build() throws IOException {
-        for(BJClass _class : _classColl) {
-            BJClassWriter.createInstance(_class.setFileComment("My Test File comment")
-            .setStaticImports(null)).build();
+
+        if(_packageName == null || _packageName == "") {
+            System.out.println("Package name is null or empty., so output is generated in default directory");
+            return ; // TODO: implement this part
         }
 
-        for(BJEnum _enum : _enumColl) {
+        for (BJClass _class : _classColl) {
+            System.out.println("Package Name ["+_class.getPackageName()+"]");
+            if (_class.getPackageName() == "") {
+                _class.setPackageName(_packageName);
+            } else {
+                _class.setPackageName(_packageName + "." + _class.getPackageName());
+            }
+            BJClassWriter.createInstance(_class).setFolderFile(_packageDir).build();
+        }
+
+        for (BJEnum _enum : _enumColl) {
             BJEnumWriter.createInstance(_enum.setFileComment("My Test File comment")
-            .setStaticImports(null)).build();
+                    .setStaticImports(null)).build();
         }
 
-        for(BJInterface _interface : _interfaceColl) {
+        for (BJInterface _interface : _interfaceColl) {
             BJInterfaceWriter.createInstance(_interface.setFileComment("My Test File comment")
-            .setStaticImports(null)).build();
+                    .setStaticImports(null)).build();
         }
     }
 }

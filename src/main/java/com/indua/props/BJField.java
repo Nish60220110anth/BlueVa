@@ -1,7 +1,8 @@
 package com.indua.props;
 
+import javax.lang.model.element.Modifier;
+
 import com.indua.utils.BJAccessModifier;
-import com.indua.utils.BJNAccessModifierFieldC;
 import com.indua.utils.BJPrimTypes;
 
 public class BJField {
@@ -18,7 +19,17 @@ public class BJField {
     private BJPrimTypes _output;
     private String _value;
     private BJAccessModifier _accModifier;
-    private BJNAccessModifierFieldC _naccModifierField;
+    private Modifier _naccModifierField;
+    private boolean isArray;
+
+    public boolean getIsArray() {
+        return isArray;
+    }
+
+    public BJField setIsArray(boolean isArray) {
+        this.isArray = isArray;
+        return this;
+    }
 
     private BJField() {
 
@@ -112,7 +123,7 @@ public class BJField {
      * @return The _naccModifierField variable is being returned.
      */
 
-    public BJNAccessModifierFieldC getNaccModifier() {
+    public Modifier getNaccModifier() {
         return _naccModifierField;
     }
 
@@ -124,7 +135,7 @@ public class BJField {
      * @param _naccModifiersMethods The access modifier for the method.
      * @return The object itself.
      */
-    public BJField setNaccModifier(BJNAccessModifierFieldC _pnaccModifierMethods) {
+    public BJField setNaccModifier(Modifier _pnaccModifierMethods) {
         this._naccModifierField = _pnaccModifierMethods;
         return this;
     }

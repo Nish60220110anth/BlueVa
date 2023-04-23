@@ -2,8 +2,9 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
+import javax.lang.model.element.Modifier;
+
 import com.indua.utils.BJAccessModifier;
-import com.indua.utils.BJNAccessModifierMethod;
 import com.indua.utils.BJPrimTypes;
 
 /**
@@ -26,7 +27,7 @@ public class BJMethodClass extends BJMethod {
     private BJPrimTypes _output; // return type of method
     private BJId _bjId; // Unique identifier for code
     private BJAccessModifier _accModifier;
-    private BJNAccessModifierMethod _naccModifierMethod;
+    private Modifier _naccModifierMethod;
     private ArrayList<BJParameter> _parameterColl;
     private String _code;
     private String _comment;
@@ -76,7 +77,7 @@ public class BJMethodClass extends BJMethod {
         _comment = "";
         _code = "";
 
-        _naccModifierMethod = BJNAccessModifierMethod.NONE;
+        _naccModifierMethod = Modifier.DEFAULT;
     }
 
     /**
@@ -170,7 +171,7 @@ public class BJMethodClass extends BJMethod {
      * @return The method is returning the value of the variable
      *         _naccModifiersMethods.
      */
-    public BJNAccessModifierMethod getNaccModifier() {
+    public Modifier getNaccModifier() {
         return _naccModifierMethod;
     }
 
@@ -179,13 +180,13 @@ public class BJMethodClass extends BJMethod {
      * value of the variable
      * _naccModifiersMethods.
      * 
-     * @apiNote See {@link BJNAccessModifierMethod} for supported
+     * @apiNote See {@link Modifier} for supported
      *          Non-Access-Modifiers
      * 
      * @param _naccModifiersMethods BJNAccessModifiersMethod
      * @return The object itself.
      */
-    public BJMethodClass setNaccModifier(BJNAccessModifierMethod _naccModifiersMethods) {
+    public BJMethodClass setNaccModifier(Modifier _naccModifiersMethods) {
         this._naccModifierMethod = _naccModifiersMethods;
         return this;
     }

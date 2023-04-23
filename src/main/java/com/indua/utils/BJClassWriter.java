@@ -11,10 +11,10 @@ import com.indua.props.BJBuildClassOutput;
 import com.indua.props.BJBuildStatus;
 import com.indua.props.BJClass;
 import com.indua.props.BJField;
-import com.indua.props.BJId;
 import com.indua.props.BJImport;
 import com.indua.props.BJMethodClass;
 import com.indua.props.BJParameter;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -32,15 +32,17 @@ public class BJClassWriter {
      * @param _pclass The class to be written.
      * @return A new instance of BJClassWriter
      */
+
+    private File filePath;
+
     public static BJClassWriter createInstance(BJClass _pclass) throws IOException {
         return new BJClassWriter(_pclass);
     }
 
-    private BJClass _class;
+    private final BJClass _class;
 
     private BJClassWriter(BJClass _pclass) throws IOException {
         _class = _pclass;
-        _preCheck();
     }
 
     /**
@@ -51,9 +53,13 @@ public class BJClassWriter {
      */
     public BJBuildClassOutput build() throws IOException {
         TypeSpec myclass = createClassSpec();
+        Builder javaBuilder;
 
-        Builder javaBuilder = JavaFile.builder(_class.getPackageName(), myclass)
-                .addFileComment(_class.getFileComment());
+        if (_class.getFileComment() == null) {
+            javaBuilder = JavaFile.builder(_class.getPackageName(), myclass);
+        } else {
+            javaBuilder = JavaFile.builder(_class.getPackageName(), myclass).addFileComment(_class.getFileComment());
+        }
 
         if (_class.getStaticImports() != null) {
 
@@ -71,21 +77,17 @@ public class BJClassWriter {
     }
 
     /**
-     * If the output directory doesn't exist, create it
-     */
-    private void _preCheck() throws IOException {
-        if (!Files.exists(Paths.get("output"))) {
-            Files.createDirectory(Paths.get("output"));
-        }
-    }
-
-    /**
      * Get the output folder as a File object.
      * 
      * @return A File object that represents the folder output.
      */
     private File getFolderFile() {
-        return Paths.get("./output").toFile();
+        return filePath == null ? Paths.get("./output").toFile() : filePath;
+    }
+
+    public BJClassWriter setFolderFile(String folderName) {
+        filePath = Paths.get(folderName).toFile();
+        return this;
     }
 
     /**
@@ -110,23 +112,63 @@ public class BJClassWriter {
     private TypeSpec createClassSpec() {
         com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.getName());
 
-        if (this._class.getNaccModifier() == BJNAccessModifierClass.DEFAULT) {
-            classBuilder = classBuilder.addModifiers(Modifier.PUBLIC);
+        if (_class.getAccModifier() == Modifier.DEFAULT) {
+            classBuilder = classBuilder.addModifiers(Modifier.PUBLIC, this._class.getNaccModifier());
+        } else if (_class.getNaccModifier() == Modifier.DEFAULT) {
+            classBuilder = classBuilder.addModifiers(this._class.getAccModifier());
         } else {
-            classBuilder = classBuilder.addModifiers(Utility.getAccessModifierCI(this._class.getAccModifier()),
-                    Utility.getNonAccessModifierForClass(this._class.getNaccModifier()));
+            classBuilder = classBuilder.addModifiers(this._class.getAccModifier(), this._class.getNaccModifier());
         }
 
         classBuilder = classBuilder
                 .addJavadoc(String.format("Hello , this is Sample Java doc for class %s\n", this._class.getName())
                         + "@brief\nSome sample brief message");
 
-        classBuilder = classBuilder
-                .superclass(
-                        Utility.getTypeNameFromString(_class.getPackageName(), _class.getExtendingClass()).getClass(),
-                        true);
+        if (_class.getExtendingClass() != null) {
+            classBuilder = classBuilder
+                    .superclass(Utility.getTypeNameFromString(_class.getPackageName(), _class.getExtendingClass()));
+        }
 
-        classBuilder = classBuilder.addMethod(createConstructor());
+        if (_class.getIsShouldAddDefConstructor()) {
+            com.squareup.javapoet.MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder();
+            for (BJField field : _class.getFieldColl()) {
+
+                if (field.getIsArray()) {
+                    methodBuilder = methodBuilder.addParameter(
+                            ArrayTypeName.of(Utility.getTypeNameForPrimTypes(field.getOutput())),
+                            field.getName());
+                } else {
+                    methodBuilder = methodBuilder.addParameter(Utility.getTypeNameForPrimTypes(field.getOutput()),
+                            field.getName());
+                }
+
+                methodBuilder.addStatement(
+                        String.format("this.%s = %s", field.getName(), Utility.getDefaultValue(field.getOutput())));
+            }
+
+            classBuilder = classBuilder.addMethod(methodBuilder.build());
+        }
+
+        if (_class.getIsShouldAddParamConstructor()) {
+            com.squareup.javapoet.MethodSpec.Builder methodBuilder =
+            MethodSpec.constructorBuilder();
+
+            for (BJField field : _class.getFieldColl()) {
+                if (field.getIsArray()) {
+                    methodBuilder = methodBuilder.addParameter(
+                            ArrayTypeName.of(Utility.getTypeNameForPrimTypes(field.getOutput())),
+                            field.getName());
+                } else {
+                    methodBuilder = methodBuilder.addParameter(Utility.getTypeNameForPrimTypes(field.getOutput()),
+                            field.getName());
+                }
+
+                methodBuilder.addStatement(String.format("this.%s = %s", field.getName(), field.getName()));
+            }
+
+            classBuilder = classBuilder.addMethod(methodBuilder.build());
+        }
+
         for (BJMethodClass methodClass : this._class.getMethodColl()) {
             classBuilder = classBuilder.addMethod(createMethodSpec(methodClass));
         }
@@ -174,11 +216,11 @@ public class BJClassWriter {
 
         com.squareup.javapoet.MethodSpec.Builder _methodBuilder = MethodSpec.methodBuilder(_methodClass.getName());
 
-        if (_methodClass.getNaccModifier() == BJNAccessModifierMethod.NONE) {
+        if (_methodClass.getNaccModifier() == Modifier.DEFAULT) {
             _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifier()));
         } else {
             _methodBuilder = _methodBuilder.addModifiers(Utility.getAccessModifier(_methodClass.getAccModifier()),
-                    Utility.getNonAccessModifierForMethod(_methodClass.getNaccModifier()));
+                    _methodClass.getNaccModifier());
         }
 
         _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodClass.getOutput()));
@@ -188,19 +230,7 @@ public class BJClassWriter {
         }
 
         _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s %s ",
-                _methodClass.getName(), _methodClass.getBjId().getId(),_methodClass.getComment()));
-
-
-        // _methodBuilder = _methodBuilder.beginControlFlow("for (int i=0 ; i < 100 ; i++)")
-        //         .addStatement(getCodeFromId(_methodClass.getBjId()))
-        //         .beginControlFlow("if(i == 69)")
-        //         .addStatement("System.out.println(\"I got 69\")")
-        //         .nextControlFlow("else if( i == 9)")
-        //         .addStatement("System.out.println(\"I got 9\")")
-        //         .nextControlFlow("else")
-        //         .addStatement("System.out.println(\"Oops Nothing\")")
-        //         .endControlFlow()
-        //         .endControlFlow();
+                _methodClass.getName(), _methodClass.getBjId().getId(), _methodClass.getComment()));
         _methodBuilder = _methodBuilder.addCode(_methodClass.getCode());
 
         return _methodBuilder.build();
@@ -215,11 +245,20 @@ public class BJClassWriter {
      */
 
     private ParameterSpec createParameterSpec(BJParameter _parameter) {
-        com.squareup.javapoet.ParameterSpec.Builder _parameterBuilder = ParameterSpec.builder(
-                Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
-                _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
-                .addJavadoc(
-                        String.format("Sample Java doc for Parameter %s", _parameter.getName()));
+        com.squareup.javapoet.ParameterSpec.Builder _parameterBuilder;
+        if (_parameter.getIsArray()) {
+            _parameterBuilder = ParameterSpec.builder(
+                    ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_parameter.getOutput())),
+                    _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
+                    .addJavadoc(
+                            String.format("Sample Java doc for Parameter %s", _parameter.getName()));
+        } else {
+            _parameterBuilder = ParameterSpec.builder(
+                    Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
+                    _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
+                    .addJavadoc(
+                            String.format("Sample Java doc for Parameter %s", _parameter.getName()));
+        }
 
         return _parameterBuilder.build();
     }
@@ -232,17 +271,35 @@ public class BJClassWriter {
      * @return A FieldSpec object.
      */
     private FieldSpec createFieldSpec(BJField _field) {
-        com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
-                Utility.getTypeNameForPrimTypes(_field.getOutput()),
-                _field.getName(), Utility.getNonAccessModifierForField(_field.getNaccModifier()))
-                .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
-                .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+
+        com.squareup.javapoet.FieldSpec.Builder fieldBuilder;
+
+        if (_field.getIsArray()) {
+
+            if (_field.getNaccModifier() == Modifier.DEFAULT) {
+                fieldBuilder = FieldSpec.builder(
+                        ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_field.getOutput())),
+                        _field.getName())
+                        .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                        .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+            } else {
+                fieldBuilder = FieldSpec.builder(
+                        ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_field.getOutput())),
+                        _field.getName(), _field.getNaccModifier())
+                        .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                        .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+            }
+        } else {
+
+            fieldBuilder = FieldSpec.builder(
+                    Utility.getTypeNameForPrimTypes(_field.getOutput()),
+                    _field.getName(), _field.getNaccModifier())
+                    .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
+                    .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
+
+        }
 
         return fieldBuilder.build();
-    }
-
-    private String getCodeFromId(BJId bjId) {
-        return String.format("System.out.println(\"Hello India\")\n");
     }
 
     /*

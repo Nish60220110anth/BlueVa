@@ -2,8 +2,7 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import com.indua.utils.BJAccessModifierCI;
-import com.indua.utils.BJNAccessModifierClass;
+import javax.lang.model.element.Modifier;
 
 public class BJClass extends BJNode {
 
@@ -19,13 +18,65 @@ public class BJClass extends BJNode {
 
     private String _extendingClass;
     private ArrayList<String> _implementingInterfaces;
-    private BJAccessModifierCI _accModifier;
-    private BJNAccessModifierClass _naccModifier;
+    private Modifier _accModifier;
+    private Modifier _naccModifier;
     private ArrayList<BJMethodClass> _methodColl;
     private ArrayList<BJField> _fieldColl;
-    private final String _packageName;
+    private String _packageName;
     private String _fileComment;
     private BJImports _staticImports;
+    private boolean isMain;
+    private boolean shouldAddDefConstructor;
+    private boolean shouldAddParamConstructor;
+    
+    public boolean getIsShouldAddDefConstructor() {
+        return shouldAddDefConstructor;
+    }
+
+    public BJClass setIsShouldAddDefConstructor(boolean shouldAddDefConstructor) {
+        this.shouldAddDefConstructor = shouldAddDefConstructor;
+        return this;
+    }
+
+    public boolean getIsShouldAddParamConstructor() {
+        return shouldAddParamConstructor;
+    }   
+
+    public BJClass setIsShouldAddParamConstructor(boolean shouldAddParamConstructor) {
+        this.shouldAddParamConstructor = shouldAddParamConstructor;
+        return this;
+    }
+
+    private BJClass(String _ppackageName) {
+        _extendingClass = null;
+        _accModifier = Modifier.PUBLIC;
+        _naccModifier = Modifier.DEFAULT;
+        _implementingInterfaces = new ArrayList<>();
+        _methodColl = new ArrayList<>();
+        _fieldColl = new ArrayList<>();
+
+        shouldAddDefConstructor= true;
+        shouldAddParamConstructor= false;
+
+        _packageName = _ppackageName;
+        _fileComment = null;
+        _name = "DefaultClass";
+        _staticImports = null;
+    }
+
+    public BJClass setPackageName(String _packageName) {
+        this._packageName = _packageName;
+        return this;
+    }
+
+    public boolean isMain() {
+        return isMain;
+    }
+
+    public BJClass setMain(boolean isMain) {
+        this.isMain = isMain;
+        return this;
+    }
 
     public boolean removeInterface(String _interface) {
         return _implementingInterfaces.remove(_interface);
@@ -51,17 +102,6 @@ public class BJClass extends BJNode {
      */
     public BJImports getStaticImports() {
         return _staticImports;
-    }
-
-    private BJClass(String _ppackageName) {
-        _implementingInterfaces = new ArrayList<>();
-        _methodColl = new ArrayList<>();
-        _fieldColl = new ArrayList<>();
-        _packageName = _ppackageName;
-        _fileComment = "";
-
-        _accModifier = BJAccessModifierCI.PUBLIC;
-        _naccModifier = BJNAccessModifierClass.DEFAULT;
     }
 
     public BJClass setFileComment(String _fileComment) {
@@ -130,7 +170,7 @@ public class BJClass extends BJNode {
      * 
      * @return The access modifiers of the class.
      */
-    public BJAccessModifierCI getAccModifier() {
+    public Modifier getAccModifier() {
         return _accModifier;
     }
 
@@ -142,7 +182,7 @@ public class BJClass extends BJNode {
      * @param _accModifier The access modifiers for the class.
      * @return The object itself.
      */
-    public BJClass setAccModifier(BJAccessModifierCI _accModifier) {
+    public BJClass setAccModifier(Modifier _accModifier) {
         this._accModifier = _accModifier;
         return this;
     }
@@ -153,7 +193,7 @@ public class BJClass extends BJNode {
      * @return The value of the variable _naccModifier.
      */
 
-    public BJNAccessModifierClass getNaccModifier() {
+    public Modifier getNaccModifier() {
         return _naccModifier;
     }
 
@@ -165,7 +205,7 @@ public class BJClass extends BJNode {
      * @param _naccModifier The access modifiers for the class.
      * @return The object itself.
      */
-    public BJClass setNaccModifier(BJNAccessModifierClass _naccModifier) {
+    public BJClass setNaccModifier(Modifier _naccModifier) {
         this._naccModifier = _naccModifier;
         return this;
     }

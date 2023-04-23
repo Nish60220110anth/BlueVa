@@ -40,9 +40,14 @@ public class BJEnum {
     private String _name;
     private BJAccessModifierE _accModifier;
     private ArrayList<BJValue> _enumvaluesColl;
-    private final String _packageName;
+    private String _packageName;
     private String _fileComment;
     private BJImports _staticImports;
+
+    public BJEnum setPackageName(String newPackageName) {
+        this._packageName = newPackageName;
+        return this;
+    }
 
     /**
      * This function returns the static imports
@@ -90,6 +95,8 @@ public class BJEnum {
 
         _name = "DefaultEnum";
         _accModifier = BJAccessModifierE.PUBLIC;
+        _packageName = "";
+        _fileComment = "";
     }
 
     /**

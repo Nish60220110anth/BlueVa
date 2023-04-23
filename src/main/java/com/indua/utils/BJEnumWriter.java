@@ -16,6 +16,9 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.JavaFile.Builder;
 
 public class BJEnumWriter {
+
+    private File filePath;
+
     /**
      * Create a new instance of the BJEnumWriter Enum, passing in the BJEnum object
      * that you want to
@@ -97,7 +100,12 @@ public class BJEnumWriter {
      */
 
     private File getFolderFile() {
-        return Paths.get("./output").toFile();
+        return filePath == null ? Paths.get("./output").toFile() : filePath;
+    }
+
+    public void setFolderFile(String folderName) {
+        filePath =  Paths.get(folderName).toFile();
+        return ;
     }
 
     /**

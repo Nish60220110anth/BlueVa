@@ -23,6 +23,9 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.JavaFile.Builder;
 
 public class BJInterfaceWriter {
+
+    private File filePath;
+
     /**
      * This function creates a new instance of the BJInterfaceWriter class
      * 
@@ -172,8 +175,14 @@ public class BJInterfaceWriter {
      */
 
     private File getFolderFile() {
-        return Paths.get("./output").toFile();
+        return filePath == null ? Paths.get("./output").toFile() : filePath;
     }
+
+    public void setFolderFile(String folderName) {
+        filePath =  Paths.get(folderName).toFile();
+        return ;
+    }
+
 
     /**
      * This function creates an instance of the BJBuildInterfaceOutput class, sets

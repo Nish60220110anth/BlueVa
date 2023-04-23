@@ -36,27 +36,6 @@ public class Utility {
     }
 
     /**
-     * It takes a BJNAccessModifiersField enum value and returns a Java Modifier
-     * enum value
-     * 
-     * @param naccModifier The non-access modifier for the field.
-     * @return A modifier.
-     */
-    public static Modifier getNonAccessModifierForField(BJNAccessModifierFieldC naccModifier) {
-        if (naccModifier == BJNAccessModifierFieldC.DEFAULT) {
-            return Modifier.DEFAULT;
-        } else if (naccModifier == BJNAccessModifierFieldC.FINAL) {
-            return Modifier.FINAL;
-        } else if (naccModifier == BJNAccessModifierFieldC.STATIC) {
-            return Modifier.STATIC;
-        } else if (naccModifier == BJNAccessModifierFieldC.TRANSIENT) {
-            return Modifier.TRANSIENT;
-        } else {
-            return Modifier.VOLATILE;
-        }
-    }
-
-    /**
      * It takes a BJNAccessModifiersMethod enum value and returns a Modifier enum
      * value
      * 
@@ -76,23 +55,6 @@ public class Utility {
             return Modifier.TRANSIENT;
         } else {
             return Modifier.DEFAULT;
-        }
-    }
-
-    /**
-     * It takes a BJNAccessModifiersClass enum value and returns a Java Modifier
-     * enum value
-     * 
-     * @param naccModifier The non-access modifier for the class.
-     * @return The return type is a Modifier.
-     */
-    public static Modifier getNonAccessModifierForClass(BJNAccessModifierClass naccModifier) {
-        if (naccModifier == BJNAccessModifierClass.ABSTRACT) {
-            return Modifier.ABSTRACT;
-        } else if (naccModifier == BJNAccessModifierClass.DEFAULT) {
-            return Modifier.DEFAULT;
-        } else {
-            return Modifier.FINAL;
         }
     }
 
@@ -136,8 +98,34 @@ public class Utility {
             return Short.class;
         } else if (_primTypes == BJPrimTypes.LONG) {
             return Long.class;
+        } else if (_primTypes == BJPrimTypes.VOID) {
+            return Void.class;
         } else {
             return String.class;
+        }
+    }
+
+    public static String getDefaultValue(BJPrimTypes primType) {
+        if (primType == BJPrimTypes.BOOLEAN) {
+            return "false";
+        } else if (primType == BJPrimTypes.BYTE) {
+            return "0";
+        } else if (primType == BJPrimTypes.CHAR) {
+            return "''";
+        } else if (primType == BJPrimTypes.DOUBLE) {
+            return "0.0";
+        } else if (primType == BJPrimTypes.FLOAT) {
+            return "0.0f";
+        } else if (primType == BJPrimTypes.INT) {
+            return "0";
+        } else if (primType == BJPrimTypes.SHORT) {
+            return "0";
+        } else if (primType == BJPrimTypes.LONG) {
+            return "0L";
+        } else if (primType == BJPrimTypes.VOID) {
+            return "null";
+        } else {
+            return "null";
         }
     }
 
@@ -174,7 +162,7 @@ public class Utility {
     public static Modifier getAccessModifierCI(BJAccessModifierCI accModifer) {
         if (accModifer == BJAccessModifierCI.PUBLIC) {
             return Modifier.PUBLIC;
-        } else  {
+        } else {
             return Modifier.ABSTRACT;
         }
     }
@@ -194,9 +182,9 @@ public class Utility {
     }
 
     public static Modifier getAccessModifierFieldI(BJAccessModifierFieldI _accMod) {
-        if(_accMod == BJAccessModifierFieldI.PUBLIC) {
+        if (_accMod == BJAccessModifierFieldI.PUBLIC) {
             return Modifier.PUBLIC;
-        }else {
+        } else {
             return Modifier.PUBLIC;
         }
     }

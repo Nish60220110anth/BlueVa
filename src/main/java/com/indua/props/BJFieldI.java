@@ -2,8 +2,6 @@ package com.indua.props;
 
 import javax.lang.model.element.Modifier;
 
-import com.indua.utils.BJAccessModifierFieldI;
-import com.indua.utils.BJNAccessModifierFieldI;
 import com.indua.utils.BJPrimTypes;
 
 public class BJFieldI {
@@ -19,8 +17,8 @@ public class BJFieldI {
     private String _name;
     private BJPrimTypes _output;
     private String _value;
-    private BJAccessModifierFieldI _accModifier;
-    private BJNAccessModifierFieldI _naccModifierField;
+    private Modifier _accModifier;
+    private Modifier _naccModifierField;
 
     private BJFieldI() {
 
@@ -93,7 +91,7 @@ public class BJFieldI {
      * 
      * @return The access modifier of the class.
      */
-    public BJAccessModifierFieldI getAccModifier() {
+    public Modifier getAccModifier() {
         return _accModifier;
     }
 
@@ -103,7 +101,7 @@ public class BJFieldI {
      * @param _accModifier The access modifier for the field.
      * @return The object itself.
      */
-    public BJFieldI setAccModifier(BJAccessModifierFieldI _paccModifier) {
+    public BJFieldI setAccModifier(Modifier _paccModifier) {
         this._accModifier = _paccModifier;
         return this;
     }
@@ -114,7 +112,7 @@ public class BJFieldI {
      * @return The _naccModifierField variable is being returned.
      */
 
-    public BJNAccessModifierFieldI getNaccModifier() {
+    public Modifier getNaccModifier() {
         return _naccModifierField;
     }
 
@@ -126,7 +124,7 @@ public class BJFieldI {
      * @param _naccModifiersMethods The access modifier for the method.
      * @return The object itself.
      */
-    public BJFieldI setNaccModifier(BJNAccessModifierFieldI _pnaccModifierMethods) {
+    public BJFieldI setNaccModifier(Modifier _pnaccModifierMethods) {
         this._naccModifierField = _pnaccModifierMethods;
         return this;
     }

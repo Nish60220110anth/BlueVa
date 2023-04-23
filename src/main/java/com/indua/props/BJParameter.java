@@ -16,6 +16,16 @@ public class BJParameter {
     private String _name;
     private BJPrimTypes _output;
     private BJNAccessModifierParameter _naccModifier;
+    private boolean isArray;
+
+    public boolean getIsArray() {
+        return isArray;
+    }
+
+    public BJParameter setIsArray(boolean isArray) {
+        this.isArray = isArray;
+        return this;
+    }
 
     private BJParameter() {
 

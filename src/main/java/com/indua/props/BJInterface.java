@@ -2,6 +2,8 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
+import javax.lang.model.element.Modifier;
+
 import com.indua.utils.BJAccessModifierCI;
 
 public class BJInterface {
@@ -19,11 +21,16 @@ public class BJInterface {
     private String _name;
     private ArrayList<String> _implementingInterfaces;
     private BJAccessModifierCI _accModifier;
-    private final String _packageName;
+    private String _packageName;
     private ArrayList<BJMethodInterface> _methodColl;
     private ArrayList<BJFieldI> _fieldColl;
     private BJImports _staticImports;
     private String _fileComment;
+
+    public BJInterface setPackageName(String newPackageName) {
+        this._packageName = newPackageName;
+        return this;
+    }
 
     public boolean removeInterface(String _interface) {
         return _implementingInterfaces.remove(_interface);
