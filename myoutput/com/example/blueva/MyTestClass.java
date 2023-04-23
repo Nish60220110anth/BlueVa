@@ -1,8 +1,5 @@
 package com.example.blueva;
 
-import static java.lang.Object;
-import static java.lang.String;
-
 import java.lang.Character;
 import java.lang.Float;
 import java.lang.Integer;
@@ -14,7 +11,7 @@ import java.lang.Void;
  * @brief
  * Some sample brief message
  */
-public final class MyTestClass {
+public class MyTestClass {
   /**
    * Sample Jav doc for Field myCharArray
    */
@@ -43,17 +40,11 @@ public final class MyTestClass {
   }
 
   /**
-   * @param args Sample Java doc for Parameter args
-   */
-  public static Void main(final String[] args) {
-    System.out.println("Hello Mom!");
-  }
-
-  /**
    * This is a test method
    * @param testParam Sample Java doc for Parameter testParam
+   * @param anoTestParam Sample Java doc for Parameter anoTestParam
    */
-  public Integer MyTestMethod(final String[] testParam) {
+  public Integer MyTestMethod(String[] testParam, Integer anoTestParam) {
     System.out.println("Hello Mom!");
   }
 
@@ -61,7 +52,7 @@ public final class MyTestClass {
    * My AnoTest Comment
    * @param testParam Sample Java doc for Parameter testParam
    */
-  private Void MyAnoTestMethod(final String[] testParam) {
+  private Void MyAnoTestMethod(String[] testParam) {
     System.out.println("Hello Mom!");
   }
 }

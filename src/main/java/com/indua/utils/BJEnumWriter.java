@@ -35,7 +35,6 @@ public class BJEnumWriter {
 
     private BJEnumWriter(BJEnum _penum) throws IOException {
         _enum = _penum;
-        _preCheck();
     }
 
     /**
@@ -84,15 +83,6 @@ public class BJEnumWriter {
     }
 
     /**
-     * If the output directory doesn't exist, create it
-     */
-    private void _preCheck() throws IOException {
-        if (!Files.exists(Paths.get("./output"))) {
-            Files.createDirectory(Paths.get("./output"));
-        }
-    }
-
-    /**
      * It returns a `File` object that represents the folder `output` in the current
      * working directory
      * 
@@ -103,9 +93,9 @@ public class BJEnumWriter {
         return filePath == null ? Paths.get("./output").toFile() : filePath;
     }
 
-    public void setFolderFile(String folderName) {
+    public BJEnumWriter setFolderFile(String folderName) {
         filePath =  Paths.get(folderName).toFile();
-        return ;
+        return this;
     }
 
     /**

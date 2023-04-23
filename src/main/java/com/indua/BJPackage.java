@@ -1,6 +1,5 @@
 package com.indua;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -255,13 +254,12 @@ public class BJPackage {
 
     public void build() throws IOException {
 
-        if(_packageName == null || _packageName == "") {
+        if (_packageName == null || _packageName == "") {
             System.out.println("Package name is null or empty., so output is generated in default directory");
-            return ; // TODO: implement this part
+            return; // TODO: implement this part
         }
 
         for (BJClass _class : _classColl) {
-            System.out.println("Package Name ["+_class.getPackageName()+"]");
             if (_class.getPackageName() == "") {
                 _class.setPackageName(_packageName);
             } else {
@@ -271,15 +269,24 @@ public class BJPackage {
         }
 
         for (BJEnum _enum : _enumColl) {
-            BJEnumWriter.createInstance(_enum.setFileComment("My Test File comment")
-                    .setStaticImports(null)).build();
+            if (_enum.getPackageName() == "") {
+                _enum.setPackageName(_packageName);
+            } else {
+                _enum.setPackageName(_packageName + "." + _enum.getPackageName());
+            }
+            BJEnumWriter.createInstance(_enum).setFolderFile(_packageDir).build();
         }
 
         for (BJInterface _interface : _interfaceColl) {
-            BJInterfaceWriter.createInstance(_interface.setFileComment("My Test File comment")
-                    .setStaticImports(null)).build();
+            if (_interface.getPackageName() == "") {
+                _interface.setPackageName(_packageName);
+            } else {
+                _interface.setPackageName(_packageName + "." + _interface.getPackageName());
+            }
+            BJInterfaceWriter.createInstance(_interface).setFolderFile(_packageDir).build();
         }
     }
+
 }
 
 /*

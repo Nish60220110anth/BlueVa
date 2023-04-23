@@ -28,7 +28,8 @@ public class BJParameter {
     }
 
     private BJParameter() {
-
+        isArray = false;
+        _naccModifier = BJNAccessModifierParameter.DEFAULT;
     }
 
     /**
@@ -47,8 +48,9 @@ public class BJParameter {
      * 
      * @param _naccModifier The parameter that is passed in from the calling method.
      */
-    public void getNaccModifier(BJNAccessModifierParameter _naccModifier) {
+    public BJParameter setNaccModifier(BJNAccessModifierParameter _naccModifier) {
         this._naccModifier = _naccModifier;
+        return this;
     }
 
     /**

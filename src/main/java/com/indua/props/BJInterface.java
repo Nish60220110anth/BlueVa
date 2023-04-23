@@ -2,8 +2,6 @@ package com.indua.props;
 
 import java.util.ArrayList;
 
-import javax.lang.model.element.Modifier;
-
 import com.indua.utils.BJAccessModifierCI;
 
 public class BJInterface {
@@ -26,10 +24,33 @@ public class BJInterface {
     private ArrayList<BJFieldI> _fieldColl;
     private BJImports _staticImports;
     private String _fileComment;
+    private String _interfaceComment;
+
+    public String getInterfaceComment() {
+        return _interfaceComment;
+    }
+
+    public BJInterface setInterfaceComment(String _interfaceComment) {
+        this._interfaceComment = _interfaceComment;
+        return this;
+    }
 
     public BJInterface setPackageName(String newPackageName) {
         this._packageName = newPackageName;
         return this;
+    }
+    // A constructor.
+    private BJInterface(String _ppackageName) {
+        _name = "DefaultInterface";
+        _implementingInterfaces = new ArrayList<>();
+        _accModifier = BJAccessModifierCI.PUBLIC;
+        _methodColl = new ArrayList<>();
+        _fieldColl = new ArrayList<>();
+        _staticImports = null;
+        _fileComment = null;
+        _interfaceComment = null;
+
+        this._packageName = _ppackageName;
     }
 
     public boolean removeInterface(String _interface) {
@@ -44,15 +65,6 @@ public class BJInterface {
         return _fieldColl.remove(_field);
     }
 
-    // A constructor.
-    private BJInterface(String _ppackageName) {
-        _implementingInterfaces = new ArrayList<>();
-        _methodColl = new ArrayList<>();
-        _accModifier = BJAccessModifierCI.PUBLIC;
-        _fieldColl = new ArrayList<>();
-
-        this._packageName = _ppackageName;
-    }
 
     public BJInterface setFileComment(String _fileComment) {
         this._fileComment = _fileComment;

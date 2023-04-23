@@ -2,7 +2,6 @@ package com.indua.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.lang.model.element.Modifier;
@@ -14,6 +13,7 @@ import com.indua.props.BJImport;
 import com.indua.props.BJInterface;
 import com.indua.props.BJMethodInterface;
 import com.indua.props.BJParameter;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -40,7 +40,6 @@ public class BJInterfaceWriter {
 
     private BJInterfaceWriter(BJInterface _pinterface) throws IOException {
         _interface = _pinterface;
-        _preCheck();
     }
 
     /**
@@ -50,8 +49,14 @@ public class BJInterfaceWriter {
      */
     public BJBuildInterfaceOutput build() throws IOException {
         TypeSpec myinterface = createInterfaceSpec();
-        Builder javaBuilder = JavaFile.builder(_interface.getPackageName(), myinterface)
-        .addFileComment(_interface.getFileComment());
+        Builder javaBuilder;
+
+        if (_interface.getFileComment() != null) {
+            javaBuilder = JavaFile.builder(_interface.getPackageName(), myinterface)
+                    .addFileComment(_interface.getFileComment());
+        } else {
+            javaBuilder = JavaFile.builder(_interface.getPackageName(), myinterface);
+        }
 
         if (_interface.getStaticImports() != null) {
 
@@ -77,10 +82,9 @@ public class BJInterfaceWriter {
 
         interfaceBuilder = interfaceBuilder.addModifiers(Utility.getAccessModifierCI(this._interface.getAccModifier()));
 
-        interfaceBuilder = interfaceBuilder
-                .addJavadoc(
-                        String.format("Hello , this is Sample Java doc for interface %s\n", this._interface.getName())
-                                + "@brief\nSome sample brief message");
+        if (_interface.getInterfaceComment() != null) {
+            interfaceBuilder = interfaceBuilder.addJavadoc(_interface.getInterfaceComment());
+        }
 
         for (BJMethodInterface methodClass : this._interface.getMethodColl()) {
             interfaceBuilder = interfaceBuilder.addMethod(createMethodSpec(methodClass));
@@ -102,7 +106,7 @@ public class BJInterfaceWriter {
     private FieldSpec createFieldSpec(BJFieldI _field) {
         com.squareup.javapoet.FieldSpec.Builder fieldBuilder = FieldSpec.builder(
                 Utility.getTypeNameForPrimTypes(_field.getOutput()),
-                _field.getName(), Modifier.PUBLIC,Modifier.STATIC,Modifier.FINAL)
+                _field.getName(), Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                 .addJavadoc(String.format("Sample Jav doc for Field %s", _field.getName()))
                 .initializer(Utility.createInitializer(_field.getOutput(), _field.getValue()));
 
@@ -127,14 +131,20 @@ public class BJInterfaceWriter {
 
         }
 
-        _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodInterface.getOutput()));
+        if (_methodInterface.getIsOutputAryType()) {
+            _methodBuilder = _methodBuilder
+                    .returns(ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_methodInterface.getOutput())));
+        } else {
+            _methodBuilder = _methodBuilder.returns(Utility.getTypeNameForPrimTypes(_methodInterface.getOutput()));
+
+        }
 
         for (BJParameter parameter : _methodInterface.getParameterColl()) {
             _methodBuilder = _methodBuilder.addParameter(createParameterSpec(parameter));
         }
 
         _methodBuilder = _methodBuilder.addJavadoc(String.format("Sample Java doc for Method %s %s",
-                _methodInterface.getName(),_methodInterface.getComment()));
+                _methodInterface.getName(), _methodInterface.getComment()));
 
         return _methodBuilder.build();
     }
@@ -147,24 +157,35 @@ public class BJInterfaceWriter {
      * @return A ParameterSpec object.
      */
     public ParameterSpec createParameterSpec(BJParameter _parameter) {
-        com.squareup.javapoet.ParameterSpec.Builder parameterBuilder = ParameterSpec.builder(
-                Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
-                _parameter.getName(),
-                Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()));
+        com.squareup.javapoet.ParameterSpec.Builder parameterBuilder;
+        if (_parameter.getNaccModifier() == BJNAccessModifierParameter.DEFAULT) {
+            if (_parameter.getIsArray()) {
+                parameterBuilder = ParameterSpec.builder(
+                        ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_parameter.getOutput())),
+                        _parameter.getName());
+            } else {
+                parameterBuilder = ParameterSpec.builder(
+                        Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
+                        _parameter.getName());
+            }
+        } else {
+            if (_parameter.getIsArray()) {
+                parameterBuilder = ParameterSpec.builder(
+                        ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_parameter.getOutput())),
+                        _parameter.getName(),
+                        Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()));
+            } else {
+                parameterBuilder = ParameterSpec.builder(
+                        Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
+                        _parameter.getName(),
+                        Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()));
+            }
+        }
 
         parameterBuilder = parameterBuilder.addJavadoc(
-                String.format("Sample Java doc for %s", _parameter.getName()));
+                String.format("Sample Java doc for %s\n", _parameter.getName()));
 
         return parameterBuilder.build();
-    }
-
-    /**
-     * If the directory "output" doesn't exist, create it
-     */
-    private void _preCheck() throws IOException {
-        if (!Files.exists(Paths.get("output"))) {
-            Files.createDirectory(Paths.get("output"));
-        }
     }
 
     /**
@@ -178,11 +199,10 @@ public class BJInterfaceWriter {
         return filePath == null ? Paths.get("./output").toFile() : filePath;
     }
 
-    public void setFolderFile(String folderName) {
-        filePath =  Paths.get(folderName).toFile();
-        return ;
+    public BJInterfaceWriter setFolderFile(String folderName) {
+        filePath = Paths.get(folderName).toFile();
+        return this;
     }
-
 
     /**
      * This function creates an instance of the BJBuildInterfaceOutput class, sets
@@ -202,10 +222,3 @@ public class BJInterfaceWriter {
     }
 
 }
-
-/**
- * BJInterfaceWriter.createInstance(BJInterface).build(); // returns
- * BJBuildInterfaceOutput
- * 
- * Automatically writes to `${BJInterface.getName()}.java` file
- */

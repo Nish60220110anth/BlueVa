@@ -2,11 +2,11 @@ package com.indua.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.lang.model.element.Modifier;
 
+import com.indua.misc.MainChart;
 import com.indua.props.BJBuildClassOutput;
 import com.indua.props.BJBuildStatus;
 import com.indua.props.BJClass;
@@ -112,6 +112,10 @@ public class BJClassWriter {
     private TypeSpec createClassSpec() {
         com.squareup.javapoet.TypeSpec.Builder classBuilder = TypeSpec.classBuilder(this._class.getName());
 
+        if (_class.isMain()) {
+            MainChart.createInstance().FillBjClass(_class);
+        }
+
         if (_class.getAccModifier() == Modifier.DEFAULT) {
             classBuilder = classBuilder.addModifiers(Modifier.PUBLIC, this._class.getNaccModifier());
         } else if (_class.getNaccModifier() == Modifier.DEFAULT) {
@@ -203,14 +207,14 @@ public class BJClassWriter {
             _methodBuilder = _methodBuilder.addParameter(createParameterSpec(parameter));
         }
 
-        if(_methodClass.getComment() != null) {
+        if (_methodClass.getComment() != null) {
             _methodBuilder = _methodBuilder.addJavadoc(_methodClass.getComment());
         }
 
-        if(_methodClass.getCode() != null) {
+        if (_methodClass.getCode() != null) {
             _methodBuilder = _methodBuilder.addCode(_methodClass.getCode());
         }
-        
+
         return _methodBuilder.build();
     }
 
@@ -225,17 +229,34 @@ public class BJClassWriter {
     private ParameterSpec createParameterSpec(BJParameter _parameter) {
         com.squareup.javapoet.ParameterSpec.Builder _parameterBuilder;
         if (_parameter.getIsArray()) {
-            _parameterBuilder = ParameterSpec.builder(
-                    ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_parameter.getOutput())),
-                    _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
-                    .addJavadoc(
-                            String.format("Sample Java doc for Parameter %s", _parameter.getName()));
+
+            if (_parameter.getNaccModifier() == BJNAccessModifierParameter.DEFAULT) {
+                _parameterBuilder = ParameterSpec.builder(
+                        ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_parameter.getOutput())),
+                        _parameter.getName())
+                        .addJavadoc(
+                                String.format("Sample Java doc for Parameter %s\n", _parameter.getName()));
+            } else {
+                _parameterBuilder = ParameterSpec.builder(
+                        ArrayTypeName.of(Utility.getTypeNameForPrimTypes(_parameter.getOutput())),
+                        _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
+                        .addJavadoc(
+                                String.format("Sample Java doc for Parameter %s\n", _parameter.getName()));
+            }
         } else {
-            _parameterBuilder = ParameterSpec.builder(
-                    Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
-                    _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
-                    .addJavadoc(
-                            String.format("Sample Java doc for Parameter %s", _parameter.getName()));
+            if (_parameter.getNaccModifier() == BJNAccessModifierParameter.DEFAULT) {
+                _parameterBuilder = ParameterSpec.builder(
+                        Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
+                        _parameter.getName())
+                        .addJavadoc(
+                                String.format("Sample Java doc for Parameter %s\n", _parameter.getName()));
+            } else {
+                _parameterBuilder = ParameterSpec.builder(
+                        Utility.getTypeNameForPrimTypes(_parameter.getOutput()),
+                        _parameter.getName(), Utility.getNonAccessModifierForParameter(_parameter.getNaccModifier()))
+                        .addJavadoc(
+                                String.format("Sample Java doc for Parameter %s\n", _parameter.getName()));
+            }
         }
 
         return _parameterBuilder.build();

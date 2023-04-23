@@ -21,9 +21,19 @@ public class BJMethodInterface extends BJMethod {
     private String _name;
     private ArrayList<BJParameter> _parameterColl;
     private BJPrimTypes _output;
+    private boolean isOutputAryType;
     private BJAccessModifier _accModifier;
     private BJNAccessModifierMethod _naccModifier;
     private String _comment;
+
+    public boolean getIsOutputAryType() {
+        return isOutputAryType;
+    }
+
+    public BJMethodInterface setIsOutputAryType(boolean isOutputAryType) {
+        this.isOutputAryType = isOutputAryType;
+        return this;
+    }
 
     /**
      * This function returns the comment of the method
