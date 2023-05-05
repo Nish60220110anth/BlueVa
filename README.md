@@ -37,6 +37,11 @@ Our tool is targeted towards a general developers community and helps them write
 
 Note: GUI part comes under frontend part of this app
 
+## Installation
+Backend part doesn't use JavaFX. It is just a normal maven project
+
+So it is not required to install any new components. It can run as a normal maven project with a `main.java` as entry file.
+
 ## Links
 1. Workflow Link [Link](https://drive.google.com/file/d/1d5iuXdy5BAa6lV574-3G1fSnnQo9vdFI/view?usp=share_link)
 
